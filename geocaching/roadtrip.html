@@ -1,0 +1,401 @@
+<!DOCTYPE HTML>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" >
+<HTML>
+<head>
+<!-- saved from url=(0014)about:internet -->
+<title>GSAK Map - Leaflet</title>
+<style type="text/css">
+      body {
+        margin: 0;
+        font-family: Arial;
+        font-size: 16px;
+      }
+
+    #map {
+      background-color: #e5e3df;
+      height: 100%;
+    }
+    img{
+      border-style: none;
+    }
+    .labels {
+     font-family: "Lucida Grande", "Arial", sans-serif;
+     font-size: 10px;
+     font-weight: bold;
+     padding: 1px !important;
+     white-space: nowrap;
+     border: black !important;
+     /* IE7 Only */
+     *width: 100px;
+     *white-space: collapse;
+   }
+   .childlabels {
+     color: blue !important;
+     font-family: "Lucida Grande", "Arial", sans-serif;
+     font-size: 10px;
+     font-weight: bold;
+     padding: 1px !important;
+     white-space: nowrap;
+     border: black !important;
+     /* IE7 Only */
+     *width: 100px;
+     *white-space: collapse;
+   }
+   .delormelabels {
+    color: orange !important;
+    font-size:18px;
+    font-weight: bold;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0px;
+    cursor: none;
+   }
+
+   .iconstyle {
+        max-width: 70%;
+        max-height: 70%;
+   }
+     
+   .leaflet-touch .leaflet-bar a, .leaflet-touch .leaflet-bar a:hover {
+            width: 20px !important;
+            height: 20px !important;
+            line-height: 20px !important;
+         }
+
+         .leaflet-contextmenu {
+             display: none;
+             box-shadow: 0 1px 7px rgba(0,0,0,0.4);
+             -webkit-border-radius: 4px;
+             border-radius: 4px;
+             padding: 4px 0;
+             background-color: #fff;
+             cursor: default;
+             -webkit-user-select: none;
+             -moz-user-select: none;
+             user-select: none;
+         }
+
+         .leaflet-contextmenu a.leaflet-contextmenu-item {
+             display: block;
+             color: #222;
+             font-size: 11px;
+             line-height: 14px;
+             text-decoration: none;
+             padding: 0 10px;
+             border-top: 1px solid transparent;
+             border-bottom: 1px solid transparent;
+             cursor: default;
+             outline: none;
+         }
+
+         .leaflet-contextmenu a.leaflet-contextmenu-item-disabled {
+             opacity: 0.5;
+         }
+
+         .leaflet-contextmenu a.leaflet-contextmenu-item.over {
+             background-color: #f4f4f4;
+             border-top: 1px solid #f0f0f0;
+             border-bottom: 1px solid #f0f0f0;
+         }
+
+         .leaflet-contextmenu a.leaflet-contextmenu-item-disabled.over {
+             background-color: inherit;
+             border-top: 1px solid transparent;
+             border-bottom: 1px solid transparent;
+         }
+
+         .leaflet-contextmenu-icon {
+             margin: 2px 8px 0 0;
+             width: 16px;
+             height: 16px;
+             float: left;
+             border: 0;
+         }
+
+         .leaflet-contextmenu-separator {
+             border-bottom: 1px solid #ccc;
+             margin: 5px 0;
+         }
+
+         .leaflet-retina .leaflet-control-layers-toggle {
+            background-size: 22px 22px !important;
+         }
+
+         .leaflet-touch .leaflet-control-layers-toggle {
+            width: 30px !important;
+            height: 30px !important;
+         }
+         .leaflet-control-geocoder a {
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            display: block;
+         }
+
+         .leaflet-control-geocoder {
+            box-shadow: 0 1px 7px #999;
+            background: #f8f8f9;
+            -moz-border-radius: 8px;
+            -webkit-border-radius: 8px;
+            border-radius: 8px;
+         }
+
+         .leaflet-control-geocoder a {
+            background-image: url(cacheicons/geocoder.png);
+            width: 26px;
+            height: 26px;
+         }
+
+         .leaflet-touch .leaflet-control-geocoder a {
+            width: 30px;
+            height: 30px;
+         }
+
+         .leaflet-control-geocoder .leaflet-control-geocoder-form,
+         .leaflet-control-geocoder-expanded .leaflet-control-geocoder-toggle {
+            display: none;
+         }
+
+         .leaflet-control-geocoder-expanded .leaflet-control-geocoder-form {
+            display: block;
+            position: relative;
+         }
+
+         .leaflet-control-geocoder-expanded .leaflet-control-geocoder-form {
+            padding: 5px;
+         }
+         .leaflet-control-layers-list {
+            cursor: pointer;
+         }
+
+         .leaflet-draw-draw-polygon {
+            background-position: -34px -5px !important;
+         }
+
+         .leaflet-draw-edit-edit {
+            background-position: -214px -5px !important;
+         }
+
+</style>
+
+<!-----external references----->
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js" crossorigin=""></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css"/>
+<script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js" crossorigin=""></script> 
+
+
+<script src="https://unpkg.com/leaflet.markercluster.freezable@1.0.0/dist/leaflet.markercluster.freezable.js"></script>
+
+<script src="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.css"/>
+
+<script src="https://unpkg.com/leaflet-contextmenu@1.4.0/dist/leaflet.contextmenu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.js"></script>
+
+<script src="https://unpkg.com/togeojson@0.16.0"></script>
+
+<script src="https://unpkg.com/leaflet-filelayer@1.2.0"></script>
+
+<script src="https://gsak.net/stats/maps/leafletmap.js?129"></script>
+
+
+<!-----local references----->
+
+<script type="text/javascript">
+var useScrollWheel = true;
+var silent = '';
+var database = 'MyGeocaches';
+var requiredversion = '3.0';
+var imagefolder = '';
+var showclusters = true;
+var tooltipsvisible = true;
+var clickfrommenu = false;
+var oneclick = false;
+var clusterradius = 80;
+var showclusters = true;
+var showanimation = true;
+var flagmarkers = [];
+var allflagmarkers = [];
+var unavailablemarkers = [];
+var dnfmarkers = [];
+var ownedmarkers = [];
+var circlemarkers = [];
+var childmarkers = [];
+var childcirclemarkers = [];
+
+
+var revNumber = "1.9";
+var scrollwheelZoom_user = true;
+var disableClusteringAtZoom_user = 14;
+var maxClusterRadius_user = 80;
+
+function usermaps() {};
+
+function userpoints() {
+
+   var latlng = new L.LatLng(-30.913667,118.20925);m3982 = new L.Marker(latlng, {icon:T_icon, title:"Forward Thinking", draggable: false, zIndexOffset:1000});m3982.bindTooltip("Forward Thinking",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m3982.cache=true;markers.addLayer(m3982);
+var latlng = new L.LatLng(-30.277167,116.662933);m4534 = new L.Marker(latlng, {icon:M_e_icon, title:"TableTop?", draggable: false, zIndexOffset:1000});m4534.bindTooltip("TableTop?",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m4534.cache=true;markers.addLayer(m4534);
+var latlng = new L.LatLng(-31.642433,117.457917);m4964 = new L.Marker(latlng, {icon:T_icon, title:"WanAus 157 - LKA Tammin", draggable: false, zIndexOffset:1000});m4964.bindTooltip("WanAus 157 - LKA Tammin",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m4964.cache=true;markers.addLayer(m4964);
+var latlng = new L.LatLng(-31.38444400000000,118.77638900000000);m5186 = new L.Marker(latlng, {icon:M_e_icon, title:"WanAus 147 - Goldfields Gallop", draggable: false, zIndexOffset:1000});m5186.bindTooltip("WanAus 147 - Goldfields Gallop",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m5186.cache=true;markers.addLayer(m5186);
+var latlng = new L.LatLng(-31.556183,116.469033);m5642 = new L.Marker(latlng, {icon:T_icon, title:"'Toodyay Today'", draggable: false, zIndexOffset:1000});m5642.bindTooltip("'Toodyay Today'",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m5642.cache=true;markers.addLayer(m5642);
+var latlng = new L.LatLng(-31.030817,116.209333);m5688 = new L.Marker(latlng, {icon:T_icon, title:"New Norcia is Dishy", draggable: false, zIndexOffset:1000});m5688.bindTooltip("New Norcia is Dishy",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m5688.cache=true;markers.addLayer(m5688);
+var latlng = new L.LatLng(-31.17958300000000,117.37483300000000);m5792 = new L.Marker(latlng, {icon:M_e_icon, title:"While ya cachin'", draggable: false, zIndexOffset:1000});m5792.bindTooltip("While ya cachin'",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m5792.cache=true;markers.addLayer(m5792);
+var latlng = new L.LatLng(-30.1863,116.656717);m5854 = new L.Marker(latlng, {icon:T_icon, title:"Over The Line", draggable: false, zIndexOffset:1000});m5854.bindTooltip("Over The Line",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m5854.cache=true;markers.addLayer(m5854);
+var latlng = new L.LatLng(-31.083417,118.242917);m5881 = new L.Marker(latlng, {icon:T_icon, title:"Buried Treasure", draggable: false, zIndexOffset:1000});m5881.bindTooltip("Buried Treasure",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m5881.cache=true;markers.addLayer(m5881);
+var latlng = new L.LatLng(-30.8944,116.717283);m6440 = new L.Marker(latlng, {icon:T_icon, title:"Twin City Wongan Hills", draggable: false, zIndexOffset:1000});m6440.bindTooltip("Twin City Wongan Hills",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m6440.cache=true;markers.addLayer(m6440);
+var latlng = new L.LatLng(-31.177983,117.383467);m6462 = new L.Marker(latlng, {icon:T_icon, title:"Wylie Warfare", draggable: false, zIndexOffset:1000});m6462.bindTooltip("Wylie Warfare",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m6462.cache=true;markers.addLayer(m6462);
+var latlng = new L.LatLng(-30.82485,117.481333);m6486 = new L.Marker(latlng, {icon:T_icon, title:"Koorda Crank!", draggable: false, zIndexOffset:1000});m6486.bindTooltip("Koorda Crank!",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m6486.cache=true;markers.addLayer(m6486);
+var latlng = new L.LatLng(-30.826233,117.486667);m6487 = new L.Marker(latlng, {icon:T_icon, title:"Koorda Bedford!", draggable: false, zIndexOffset:1000});m6487.bindTooltip("Koorda Bedford!",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m6487.cache=true;markers.addLayer(m6487);
+var latlng = new L.LatLng(-30.816217,117.862317);m6984 = new L.Marker(latlng, {icon:T_icon, title:"Welcome to Bencubbin", draggable: false, zIndexOffset:1000});m6984.bindTooltip("Welcome to Bencubbin",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m6984.cache=true;markers.addLayer(m6984);
+var latlng = new L.LatLng(-31.641717,117.358167);m7444 = new L.Marker(latlng, {icon:T_icon, title:"Thrilled No 1", draggable: false, zIndexOffset:1000});m7444.bindTooltip("Thrilled No 1",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m7444.cache=true;markers.addLayer(m7444);
+var latlng = new L.LatLng(-31.31155,118.686967);m9765 = new L.Marker(latlng, {icon:T_icon, title:"WeSt onYa", draggable: false, zIndexOffset:1000});m9765.bindTooltip("WeSt onYa",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m9765.cache=true;markers.addLayer(m9765);
+var latlng = new L.LatLng(-30.823567,117.995367);m9818 = new L.Marker(latlng, {icon:T_icon, title:"Any one for tennis?", draggable: false, zIndexOffset:1000});m9818.bindTooltip("Any one for tennis?",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m9818.cache=true;markers.addLayer(m9818);
+var latlng = new L.LatLng(-30.8498,118.05095);m9829 = new L.Marker(latlng, {icon:T_icon, title:"Dead men tell no tales", draggable: false, zIndexOffset:1000});m9829.bindTooltip("Dead men tell no tales",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m9829.cache=true;markers.addLayer(m9829);
+var latlng = new L.LatLng(-31.6428,116.628283);m10648 = new L.Marker(latlng, {icon:T_icon, title:"ACCENT of colour", draggable: false, zIndexOffset:1000});m10648.bindTooltip("ACCENT of colour",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m10648.cache=true;markers.addLayer(m10648);
+var latlng = new L.LatLng(-31.200783,117.38845);m12206 = new L.Marker(latlng, {icon:T_icon, title:"Wylie Travels - Airport", draggable: false, zIndexOffset:1000});m12206.bindTooltip("Wylie Travels - Airport",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m12206.cache=true;markers.addLayer(m12206);
+var latlng = new L.LatLng(-31.179417,117.37925);m12208 = new L.Marker(latlng, {icon:T_icon, title:"Wylie Travels - Museum", draggable: false, zIndexOffset:1000});m12208.bindTooltip("Wylie Travels - Museum",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m12208.cache=true;markers.addLayer(m12208);
+var latlng = new L.LatLng(-31.17105000000000,117.39803300000000);m12209 = new L.Marker(latlng, {icon:T_e_icon, title:"Wylie Travels - The Well", draggable: false, zIndexOffset:1000});m12209.bindTooltip("Wylie Travels - The Well",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m12209.cache=true;markers.addLayer(m12209);
+var latlng = new L.LatLng(-31.181233,117.3819);m12210 = new L.Marker(latlng, {icon:T_icon, title:"Wylie Travels - Information Bay", draggable: false, zIndexOffset:1000});m12210.bindTooltip("Wylie Travels - Information Bay",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m12210.cache=true;markers.addLayer(m12210);
+var latlng = new L.LatLng(-31.187733,117.388083);m12211 = new L.Marker(latlng, {icon:T_icon, title:"Wylie Travels - Elevator", draggable: false, zIndexOffset:1000});m12211.bindTooltip("Wylie Travels - Elevator",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m12211.cache=true;markers.addLayer(m12211);
+var latlng = new L.LatLng(-31.193433333333338,117.39563333333334);m12215 = new L.Marker(latlng, {icon:U_e_icon, title:"Wylie Travels Final", draggable: false, zIndexOffset:1000});m12215.bindTooltip("Wylie Travels Final",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m12215.cache=true;markers.addLayer(m12215);
+var latlng = new L.LatLng(-31.189733,117.2114);m12284 = new L.Marker(latlng, {icon:T_icon, title:"Rabbit Proof Fence No.2", draggable: false, zIndexOffset:1000});m12284.bindTooltip("Rabbit Proof Fence No.2",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m12284.cache=true;markers.addLayer(m12284);
+var latlng = new L.LatLng(-31.176733,117.372767);m12358 = new L.Marker(latlng, {icon:T_icon, title:"Welcome to Wylie", draggable: false, zIndexOffset:1000});m12358.bindTooltip("Welcome to Wylie",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m12358.cache=true;markers.addLayer(m12358);
+var latlng = new L.LatLng(-31.053583,116.776483);m13639 = new L.Marker(latlng, {icon:T_icon, title:"Konnongorring Hall", draggable: false, zIndexOffset:1000});m13639.bindTooltip("Konnongorring Hall",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m13639.cache=true;markers.addLayer(m13639);
+var latlng = new L.LatLng(-30.836533,116.639017);m13640 = new L.Marker(latlng, {icon:T_icon, title:"Mt Obrien Lookout", draggable: false, zIndexOffset:1000});m13640.bindTooltip("Mt Obrien Lookout",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m13640.cache=true;markers.addLayer(m13640);
+var latlng = new L.LatLng(-30.397767,116.667233);m13726 = new L.Marker(latlng, {icon:T_icon, title:"Country Cache - Pithara", draggable: false, zIndexOffset:1000});m13726.bindTooltip("Country Cache - Pithara",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m13726.cache=true;markers.addLayer(m13726);
+var latlng = new L.LatLng(-30.82625,117.482533);m13984 = new L.Marker(latlng, {icon:T_icon, title:"WheatBelt Way - A Blast From the Past.", draggable: false, zIndexOffset:1000});m13984.bindTooltip("WheatBelt Way - A Blast From the Past.",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m13984.cache=true;markers.addLayer(m13984);
+var latlng = new L.LatLng(-31.632733,117.728783);m14279 = new L.Marker(latlng, {icon:T_icon, title:"A man, his dog and a dead kangaroo", draggable: false,opacity:0.3, zIndexOffset:1000});m14279.bindTooltip("A man, his dog and a dead kangaroo",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m14279.cache=true;markers.addLayer(m14279);
+var latlng = new L.LatLng(-31.651717,117.2415);m14632 = new L.Marker(latlng, {icon:T_icon, title:"Cunderdin Railway Water Tower", draggable: false, zIndexOffset:1000});m14632.bindTooltip("Cunderdin Railway Water Tower",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m14632.cache=true;markers.addLayer(m14632);
+var latlng = new L.LatLng(-31.139967,116.878233);m14888 = new L.Marker(latlng, {icon:T_icon, title:"HEP OAK PARK", draggable: false, zIndexOffset:1000});m14888.bindTooltip("HEP OAK PARK",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m14888.cache=true;markers.addLayer(m14888);
+var latlng = new L.LatLng(-30.831883,117.482867);m15513 = new L.Marker(latlng, {icon:T_icon, title:"WST - Koorda Drive In", draggable: false, zIndexOffset:1000});m15513.bindTooltip("WST - Koorda Drive In",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m15513.cache=true;markers.addLayer(m15513);
+var latlng = new L.LatLng(-31.64105,117.485);m15515 = new L.Marker(latlng, {icon:T_icon, title:"WST - Tammin Hydrology Model", draggable: false, zIndexOffset:1000});m15515.bindTooltip("WST - Tammin Hydrology Model",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m15515.cache=true;markers.addLayer(m15515);
+var latlng = new L.LatLng(-30.820917,116.63785);m15519 = new L.Marker(latlng, {icon:T_icon, title:"WST - Mt Matilda", draggable: false, zIndexOffset:1000});m15519.bindTooltip("WST - Mt Matilda",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m15519.cache=true;markers.addLayer(m15519);
+var latlng = new L.LatLng(-30.106983,116.631317);m15520 = new L.Marker(latlng, {icon:T_icon, title:"WST - Wubin Wheat Bin Museum", draggable: false, zIndexOffset:1000});m15520.bindTooltip("WST - Wubin Wheat Bin Museum",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m15520.cache=true;markers.addLayer(m15520);
+var latlng = new L.LatLng(-31.082067,118.242033);m15521 = new L.Marker(latlng, {icon:T_icon, title:"WST - Eaglestone Rock & Lake Brown", draggable: false, zIndexOffset:1000});m15521.bindTooltip("WST - Eaglestone Rock & Lake Brown",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m15521.cache=true;markers.addLayer(m15521);
+var latlng = new L.LatLng(-31.303,118.69715);m15522 = new L.Marker(latlng, {icon:T_icon, title:"WST - Westonia", draggable: false, zIndexOffset:1000});m15522.bindTooltip("WST - Westonia",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m15522.cache=true;markers.addLayer(m15522);
+var latlng = new L.LatLng(-30.387533,116.669317);m15528 = new L.Marker(latlng, {icon:T_icon, title:"Pithara", draggable: false, zIndexOffset:1000});m15528.bindTooltip("Pithara",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m15528.cache=true;markers.addLayer(m15528);
+var latlng = new L.LatLng(-31.05103300000000,118.03766700000000);m15532 = new L.Marker(latlng, {icon:M_e_icon, title:"WST - Billyacatting Hill", draggable: false, zIndexOffset:1000});m15532.bindTooltip("WST - Billyacatting Hill",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m15532.cache=true;markers.addLayer(m15532);
+var latlng = new L.LatLng(-31.02740000000000,116.20216700000000);m15535 = new L.Marker(latlng, {icon:U_e_icon, title:"WST- New Norcia Deep Space Ground Station", draggable: false, zIndexOffset:1000});m15535.bindTooltip("WST- New Norcia Deep Space Ground Station",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m15535.cache=true;markers.addLayer(m15535);
+var latlng = new L.LatLng(-31.1402,116.876067);m15542 = new L.Marker(latlng, {icon:T_icon, title:"WST - Oak Park", draggable: false, zIndexOffset:1000});m15542.bindTooltip("WST - Oak Park",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m15542.cache=true;markers.addLayer(m15542);
+var latlng = new L.LatLng(-31.1751,117.4585);m15544 = new L.Marker(latlng, {icon:T_icon, title:"WST - Korrelocking Nature Reserve", draggable: false, zIndexOffset:1000});m15544.bindTooltip("WST - Korrelocking Nature Reserve",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m15544.cache=true;markers.addLayer(m15544);
+var latlng = new L.LatLng(-31.370533,118.859683);m15550 = new L.Marker(latlng, {icon:T_icon, title:"WST - Golden Pipeline", draggable: false, zIndexOffset:1000});m15550.bindTooltip("WST - Golden Pipeline",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m15550.cache=true;markers.addLayer(m15550);
+var latlng = new L.LatLng(-30.9213,118.209133);m15551 = new L.Marker(latlng, {icon:T_icon, title:"WST - Mukinbudin Botanical Walk", draggable: false, zIndexOffset:1000});m15551.bindTooltip("WST - Mukinbudin Botanical Walk",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m15551.cache=true;markers.addLayer(m15551);
+var latlng = new L.LatLng(-30.83316700000000,117.80978300000000);m15555 = new L.Marker(latlng, {icon:M_e_icon, title:"WST - Sandalwood", draggable: false, zIndexOffset:1000});m15555.bindTooltip("WST - Sandalwood",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m15555.cache=true;markers.addLayer(m15555);
+var latlng = new L.LatLng(-31.181767,117.191733);m16051 = new L.Marker(latlng, {icon:T_icon, title:"WST - Namelcatching Well", draggable: false, zIndexOffset:1000});m16051.bindTooltip("WST - Namelcatching Well",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m16051.cache=true;markers.addLayer(m16051);
+var latlng = new L.LatLng(-30.595683,116.766667);m16930 = new L.Marker(latlng, {icon:T_icon, title:"Ballidu Bicycle", draggable: false, zIndexOffset:1000});m16930.bindTooltip("Ballidu Bicycle",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m16930.cache=true;markers.addLayer(m16930);
+var latlng = new L.LatLng(-31.765717,116.244767);m17552 = new L.Marker(latlng, {icon:T_icon, title:"Almost At The Tippy Top", draggable: false, zIndexOffset:1000});m17552.bindTooltip("Almost At The Tippy Top",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m17552.cache=true;markers.addLayer(m17552);
+var latlng = new L.LatLng(-31.744967,116.010633);m18283 = new L.Marker(latlng, {icon:U_e_icon, title:"Annie's Landing", draggable: false, zIndexOffset:1000});m18283.bindTooltip("Annie's Landing",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m18283.cache=true;markers.addLayer(m18283);
+var latlng = new L.LatLng(-30.996383,118.014133);m18945 = new L.Marker(latlng, {icon:T_icon, title:"I’m Blue", draggable: false, zIndexOffset:1000});m18945.bindTooltip("I’m Blue",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m18945.cache=true;markers.addLayer(m18945);
+var latlng = new L.LatLng(-30.914633,118.213983);m18946 = new L.Marker(latlng, {icon:T_icon, title:"MBL 6479", draggable: false, zIndexOffset:1000});m18946.bindTooltip("MBL 6479",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m18946.cache=true;markers.addLayer(m18946);
+   
+   
+   
+   
+   
+   var latlng = new L.LatLng(-30.82485,117.481333);u6486 = new L.Marker(latlng, {icon:unavailable_icon, title:"Koorda Crank!", draggable:false, zIndexOffset:10000, alt:'u6486'});unavailablemarkers.push(u6486);
+var latlng = new L.LatLng(-31.632733,117.728783);u14279 = new L.Marker(latlng, {icon:unavailable_icon, title:"A man, his dog and a dead kangaroo", draggable:false,opacity:0.3, zIndexOffset:10000, alt:'u14279'});unavailablemarkers.push(u14279);
+var latlng = new L.LatLng(-31.17958300000000,117.37483300000000);u5792 = new L.Marker(latlng, {icon:unavailable_icon, title:"While ya cachin'", draggable:false, zIndexOffset:10000, alt:'u5792'});unavailablemarkers.push(u5792);
+
+   
+
+   
+
+   m18283.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC83RBQ' target='geo'>GC83RBQ</a><br />Annie's Landing </b><br /><i>by: parkacruz </i><br /><br />Difficulty: 5.0, Terrain: 4.5<br />Size: Micro, Fav Points: 8<br />Elevation: 24 m.<br /><br />" + gsakButtons('GC83RBQ' ,false,'null') + " <br><br /></center></div>");
+m17552.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC8211A' target='geo'>GC8211A</a><br />Almost At The Tippy Top </b><br /><i>by: jasenjanine </i><br /><br />Difficulty: 1.0, Terrain: 4.0<br />Size: Regular, Fav Points: 3<br />Elevation: 247 m.<br /><br />" + gsakButtons('GC8211A' ,false,'null') + " <br><br /></center></div>");
+m5642.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC4F85' target='geo'>GC4F85</a><br />'Toodyay Today' </b><br /><i>by: Lyn Pat and Nathan </i><br /><br />Difficulty: 2.0, Terrain: 2.5<br />Size: Regular, Fav Points: 6<br />Elevation: 197 m.<br /><br />" + gsakButtons('GC4F85' ,false,'null') + " <br><br /></center></div>");
+m10648.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC5RFET' target='geo'>GC5RFET</a><br />ACCENT of colour </b><br /><i>by: nano's nemesis </i><br /><br />Difficulty: 1.5, Terrain: 2.0<br />Size: Small, Fav Points: 14<br />Elevation: 166 m.<br /><br />" + gsakButtons('GC5RFET' ,false,'null') + " <br><br /></center></div>");
+m5688.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC1266V' target='geo'>GC1266V</a><br />New Norcia is Dishy </b><br /><i>by: Bear_Left </i><br /><br />Difficulty: 1.0, Terrain: 1.5<br />Size: Small, Fav Points: 1<br />Elevation: 229 m.<br /><br />" + gsakButtons('GC1266V' ,false,'null') + " <br><br /></center></div>");
+m15535.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC79078' target='geo'>GC79078</a><br />WST- New Norcia Deep Space Ground Station </b><br /><i>by: WheatbeltScience </i><br /><br />Difficulty: 3.5, Terrain: 1.5<br />Size: Small, Fav Points: 3<br />Elevation: 203 m.<br /><br />" + gsakButtons('GC79078' ,false,'null') + " <br><br /></center></div>");
+m13639.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC6PWDT' target='geo'>GC6PWDT</a><br />Konnongorring Hall </b><br /><i>by: Kyzabra </i><br /><br />Difficulty: 2.0, Terrain: 1.5<br />Size: Small, Fav Points: 1<br />Elevation: 300 m.<br /><br />" + gsakButtons('GC6PWDT' ,false,'null') + " <br><br /></center></div>");
+m15542.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC78XKR' target='geo'>GC78XKR</a><br />WST - Oak Park </b><br /><i>by: WheatbeltScience </i><br /><br />Difficulty: 1.5, Terrain: 2.0<br />Size: Small, Fav Points: 0<br />Elevation: 271 m.<br /><br />" + gsakButtons('GC78XKR' ,false,'null') + " <br><br /></center></div>");
+m14888.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC7A5GK' target='geo'>GC7A5GK</a><br />HEP OAK PARK </b><br /><i>by: prouds </i><br /><br />Difficulty: 1.5, Terrain: 2.5<br />Size: Regular, Fav Points: 2<br />Elevation: 273 m.<br /><br />" + gsakButtons('GC7A5GK' ,false,'null') + " <br><br /></center></div>");
+m6440.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC3HBC6' target='geo'>GC3HBC6</a><br />Twin City Wongan Hills </b><br /><i>by: Zodiakhorizon </i><br /><br />Difficulty: 2.0, Terrain: 1.5<br />Size: Micro, Fav Points: 2<br />Elevation: 276 m.<br /><br />" + gsakButtons('GC3HBC6' ,false,'null') + " <br><br /></center></div>");
+m14632.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC76CZ7' target='geo'>GC76CZ7</a><br />Cunderdin Railway Water Tower </b><br /><i>by: dezzabills </i><br /><br />Difficulty: 3.5, Terrain: 3.0<br />Size: Micro, Fav Points: 1<br />Elevation: 234 m.<br /><br />" + gsakButtons('GC76CZ7' ,false,'null') + " <br><br /></center></div>");
+m13640.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC6PWE0' target='geo'>GC6PWE0</a><br />Mt Obrien Lookout </b><br /><i>by: Kyzabra </i><br /><br />Difficulty: 2.0, Terrain: 2.0<br />Size: Small, Fav Points: 5<br />Elevation: 419 m.<br /><br />" + gsakButtons('GC6PWE0' ,false,'null') + " <br><br /></center></div>");
+m15519.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC791MJ' target='geo'>GC791MJ</a><br />WST - Mt Matilda </b><br /><i>by: WheatbeltScience </i><br /><br />Difficulty: 1.5, Terrain: 2.5<br />Size: Large, Fav Points: 1<br />Elevation: 348 m.<br /><br />" + gsakButtons('GC791MJ' ,false,'null') + " <br><br /></center></div>");
+m7444.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC3T7WN' target='geo'>GC3T7WN</a><br />Thrilled No 1 </b><br /><i>by: briantbg </i><br /><br />Difficulty: 1.5, Terrain: 1.5<br />Size: Small, Fav Points: 3<br />Elevation: 225 m.<br /><br />" + gsakButtons('GC3T7WN' ,false,'null') + " <br><br /></center></div>");
+m16051.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC7934A' target='geo'>GC7934A</a><br />WST - Namelcatching Well </b><br /><i>by: WheatbeltScience </i><br /><br />Difficulty: 2.0, Terrain: 1.5<br />Size: Micro, Fav Points: 2<br />Elevation: 329 m.<br /><br />" + gsakButtons('GC7934A' ,false,'null') + " <br><br /></center></div>");
+m12284.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC69PCE' target='geo'>GC69PCE</a><br />Rabbit Proof Fence No.2 </b><br /><i>by: WebblyWA </i><br /><br />Difficulty: 1.5, Terrain: 2.0<br />Size: Regular, Fav Points: 6<br />Elevation: 327 m.<br /><br />" + gsakButtons('GC69PCE' ,false,'null') + " <br><br /></center></div>");
+m4964.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC20VC8' target='geo'>GC20VC8</a><br />WanAus 157 - LKA Tammin </b><br /><i>by: WanderingAus </i><br /><br />Difficulty: 1.0, Terrain: 1.5<br />Size: Small, Fav Points: 1<br />Elevation: 249 m.<br /><br />" + gsakButtons('GC20VC8' ,false,'null') + " <br><br /></center></div>");
+m15515.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC78XN7' target='geo'>GC78XN7</a><br />WST - Tammin Hydrology Model </b><br /><i>by: WheatbeltScience </i><br /><br />Difficulty: 2.0, Terrain: 1.5<br />Size: Micro, Fav Points: 2<br />Elevation: 249 m.<br /><br />" + gsakButtons('GC78XN7' ,false,'null') + " <br><br /></center></div>");
+m12358.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC6ACZV' target='geo'>GC6ACZV</a><br />Welcome to Wylie </b><br /><i>by: Barnzy12 </i><br /><br />Difficulty: 1.5, Terrain: 1.5<br />Size: Small, Fav Points: 1<br />Elevation: 317 m.<br /><br />" + gsakButtons('GC6ACZV' ,false,'null') + " <br><br /></center></div>");
+m5792.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GCXCGH' target='geo'>GCXCGH</a><br />While ya cachin' </b><br /><i>by: ZED! </i><br /><br />Difficulty: 2.0, Terrain: 2.0<br />Size: Regular, Fav Points: 2<br />Elevation: 318 m.<br /><br /><b><i><font color='ff0000'>Archived</font></i></b><br /><br />" + gsakButtons('GCXCGH' ,false,'null') + " <br><br /></center></div>");
+m12206.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC6919P' target='geo'>GC6919P</a><br />Wylie Travels - Airport </b><br /><i>by: WebblyWA </i><br /><br />Difficulty: 1.5, Terrain: 1.5<br />Size: Small, Fav Points: 5<br />Elevation: 307 m.<br /><br />" + gsakButtons('GC6919P' ,false,'null') + " <br><br /></center></div>");
+m12208.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC691CZ' target='geo'>GC691CZ</a><br />Wylie Travels - Museum </b><br /><i>by: WebblyWA </i><br /><br />Difficulty: 1.0, Terrain: 1.0<br />Size: Small, Fav Points: 3<br />Elevation: 326 m.<br /><br />" + gsakButtons('GC691CZ' ,false,'null') + " <br><br /></center></div>");
+m12210.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC691JY' target='geo'>GC691JY</a><br />Wylie Travels - Information Bay </b><br /><i>by: WebblyWA </i><br /><br />Difficulty: 2.0, Terrain: 1.5<br />Size: Small, Fav Points: 1<br />Elevation: 329 m.<br /><br />" + gsakButtons('GC691JY' ,false,'null') + " <br><br /></center></div>");
+m12211.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC691M2' target='geo'>GC691M2</a><br />Wylie Travels - Elevator </b><br /><i>by: WebblyWA </i><br /><br />Difficulty: 2.5, Terrain: 1.5<br />Size: Small, Fav Points: 2<br />Elevation: 325 m.<br /><br />" + gsakButtons('GC691M2' ,false,'null') + " <br><br /></center></div>");
+m6462.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC3HBJB' target='geo'>GC3HBJB</a><br />Wylie Warfare </b><br /><i>by: Zodiakhorizon </i><br /><br />Difficulty: 2.5, Terrain: 1.5<br />Size: Micro, Fav Points: 0<br />Elevation: 335 m.<br /><br />" + gsakButtons('GC3HBJB' ,false,'null') + " <br><br /></center></div>");
+m12215.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC69182' target='geo'>GC69182</a><br />Wylie Travels Final </b><br /><i>by: WebblyWA </i><br /><br />Difficulty: 3.5, Terrain: 2.0<br />Size: Regular, Fav Points: 12<br />Elevation: 330 m.<br /><br />" + gsakButtons('GC69182' ,false,'null') + " <br><br /></center></div>");
+m12209.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC691DC' target='geo'>GC691DC</a><br />Wylie Travels - The Well </b><br /><i>by: WebblyWA </i><br /><br />Difficulty: 2.0, Terrain: 2.0<br />Size: Micro, Fav Points: 3<br />Elevation: 341 m.<br /><br />" + gsakButtons('GC691DC' ,false,'null') + " <br><br /></center></div>");
+m16930.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC7H3C3' target='geo'>GC7H3C3</a><br />Ballidu Bicycle </b><br /><i>by: Lazarus_68 </i><br /><br />Difficulty: 2.5, Terrain: 2.0<br />Size: Micro, Fav Points: 4<br />Elevation: 309 m.<br /><br />" + gsakButtons('GC7H3C3' ,false,'null') + " <br><br /></center></div>");
+m15544.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC78YJF' target='geo'>GC78YJF</a><br />WST - Korrelocking Nature Reserve </b><br /><i>by: WheatbeltScience </i><br /><br />Difficulty: 1.5, Terrain: 2.0<br />Size: Small, Fav Points: 2<br />Elevation: 325 m.<br /><br />" + gsakButtons('GC78YJF' ,false,'null') + " <br><br /></center></div>");
+m13726.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC6QKF6' target='geo'>GC6QKF6</a><br />Country Cache - Pithara </b><br /><i>by: Barnzy12 </i><br /><br />Difficulty: 1.5, Terrain: 1.5<br />Size: Regular, Fav Points: 2<br />Elevation: 336 m.<br /><br />" + gsakButtons('GC6QKF6' ,false,'null') + " <br><br /></center></div>");
+m14279.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC70QEG' target='geo'>GC70QEG</a><br />A man, his dog and a dead kangaroo </b><br /><i>by: Ikillah </i><br /><br />Difficulty: 1.5, Terrain: 1.5<br />Size: Micro, Fav Points: 0<br />Elevation: 252 m.<br /><br /><b><i><font color='ff0000'>Temporarily Disabled</font></i></b><br /><br />" + gsakButtons('GC70QEG' ,false,'null') + " <br><br /></center></div>");
+m15528.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC7B40G' target='geo'>GC7B40G</a><br />Pithara </b><br /><i>by: SpatialRiq </i><br /><br />Difficulty: 1.5, Terrain: 1.5<br />Size: Small, Fav Points: 0<br />Elevation: 329 m.<br /><br />" + gsakButtons('GC7B40G' ,false,'null') + " <br><br /></center></div>");
+m15513.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC78XKZ' target='geo'>GC78XKZ</a><br />WST - Koorda Drive In </b><br /><i>by: WheatbeltScience </i><br /><br />Difficulty: 2.0, Terrain: 1.0<br />Size: Micro, Fav Points: 0<br />Elevation: 312 m.<br /><br />" + gsakButtons('GC78XKZ' ,false,'null') + " <br><br /></center></div>");
+m13984.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC6VD03' target='geo'>GC6VD03</a><br />WheatBelt Way - A Blast From the Past. </b><br /><i>by: pood </i><br /><br />Difficulty: 1.5, Terrain: 1.5<br />Size: Large, Fav Points: 9<br />Elevation: 316 m.<br /><br />" + gsakButtons('GC6VD03' ,false,'null') + " <br><br /></center></div>");
+m6486.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC3HBGV' target='geo'>GC3HBGV</a><br />Koorda Crank! </b><br /><i>by: Zodiakhorizon </i><br /><br />Difficulty: 2.0, Terrain: 1.5<br />Size: Micro, Fav Points: 0<br />Elevation: 313 m.<br /><br /><b><i><font color='ff0000'>Archived</font></i></b><br /><br />" + gsakButtons('GC3HBGV' ,false,'null') + " <br><br /></center></div>");
+m6487.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC3HBGP' target='geo'>GC3HBGP</a><br />Koorda Bedford! </b><br /><i>by: Zodiakhorizon </i><br /><br />Difficulty: 2.5, Terrain: 1.5<br />Size: Micro, Fav Points: 0<br />Elevation: 317 m.<br /><br />" + gsakButtons('GC3HBGP' ,false,'null') + " <br><br /></center></div>");
+m4534.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC2MCWQ' target='geo'>GC2MCWQ</a><br />TableTop? </b><br /><i>by: dougalh </i><br /><br />Difficulty: 1.5, Terrain: 1.0<br />Size: Micro, Fav Points: 1<br />Elevation: 345 m.<br /><br />" + gsakButtons('GC2MCWQ' ,false,'null') + " <br><br /></center></div>");
+m5854.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC1NE9J' target='geo'>GC1NE9J</a><br />Over The Line </b><br /><i>by: the_robots </i><br /><br />Difficulty: 1.5, Terrain: 2.0<br />Size: Small, Fav Points: 0<br />Elevation: 318 m.<br /><br />" + gsakButtons('GC1NE9J' ,false,'null') + " <br><br /></center></div>");
+m15520.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC791MR' target='geo'>GC791MR</a><br />WST - Wubin Wheat Bin Museum </b><br /><i>by: WheatbeltScience </i><br /><br />Difficulty: 1.5, Terrain: 1.0<br />Size: Micro, Fav Points: 2<br />Elevation: 342 m.<br /><br />" + gsakButtons('GC791MR' ,false,'null') + " <br><br /></center></div>");
+m15555.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC79061' target='geo'>GC79061</a><br />WST - Sandalwood </b><br /><i>by: WheatbeltScience </i><br /><br />Difficulty: 2.0, Terrain: 2.0<br />Size: Small, Fav Points: 2<br />Elevation: 379 m.<br /><br />" + gsakButtons('GC79061' ,false,'null') + " <br><br /></center></div>");
+m6984.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC43WGK' target='geo'>GC43WGK</a><br />Welcome to Bencubbin </b><br /><i>by: FelixII </i><br /><br />Difficulty: 1.0, Terrain: 1.5<br />Size: Micro, Fav Points: 1<br />Elevation: 351 m.<br /><br />" + gsakButtons('GC43WGK' ,false,'null') + " <br><br /></center></div>");
+m15532.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC791PD' target='geo'>GC791PD</a><br />WST - Billyacatting Hill </b><br /><i>by: WheatbeltScience </i><br /><br />Difficulty: 3.0, Terrain: 3.0<br />Size: Small, Fav Points: 7<br />Elevation: 346 m.<br /><br />" + gsakButtons('GC791PD' ,false,'null') + " <br><br /></center></div>");
+m18945.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC8D07J' target='geo'>GC8D07J</a><br />I’m Blue </b><br /><i>by: PollyMichele </i><br /><br />Difficulty: 2.5, Terrain: 1.5<br />Size: Micro, Fav Points: 0<br />Elevation: 338 m.<br /><br />" + gsakButtons('GC8D07J' ,false,'null') + " <br><br /></center></div>");
+m9818.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC5DP35' target='geo'>GC5DP35</a><br />Any one for tennis? </b><br /><i>by: Allbehind </i><br /><br />Difficulty: 2.0, Terrain: 1.5<br />Size: Micro, Fav Points: 1<br />Elevation: 346 m.<br /><br />" + gsakButtons('GC5DP35' ,false,'null') + " <br><br /></center></div>");
+m9829.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC5DP42' target='geo'>GC5DP42</a><br />Dead men tell no tales </b><br /><i>by: Allbehind </i><br /><br />Difficulty: 1.0, Terrain: 1.5<br />Size: Micro, Fav Points: 1<br />Elevation: 398 m.<br /><br />" + gsakButtons('GC5DP42' ,false,'null') + " <br><br /></center></div>");
+m15521.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC791NV' target='geo'>GC791NV</a><br />WST - Eaglestone Rock & Lake Brown </b><br /><i>by: WheatbeltScience </i><br /><br />Difficulty: 2.5, Terrain: 2.5<br />Size: Micro, Fav Points: 7<br />Elevation: 305 m.<br /><br />" + gsakButtons('GC791NV' ,false,'null') + " <br><br /></center></div>");
+m5881.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GCNMNK' target='geo'>GCNMNK</a><br />Buried Treasure </b><br /><i>by: Muka Raiders </i><br /><br />Difficulty: 3.0, Terrain: 3.0<br />Size: Small, Fav Points: 4<br />Elevation: 305 m.<br /><br />" + gsakButtons('GCNMNK' ,false,'null') + " <br><br /></center></div>");
+m15551.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC79348' target='geo'>GC79348</a><br />WST - Mukinbudin Botanical Walk </b><br /><i>by: WheatbeltScience </i><br /><br />Difficulty: 1.0, Terrain: 4.0<br />Size: Small, Fav Points: 1<br />Elevation: 310 m.<br /><br />" + gsakButtons('GC79348' ,false,'null') + " <br><br /></center></div>");
+m3982.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC4K2TC' target='geo'>GC4K2TC</a><br />Forward Thinking </b><br /><i>by: The Nigels </i><br /><br />Difficulty: 1.0, Terrain: 1.0<br />Size: Micro, Fav Points: 1<br />Elevation: 312 m.<br /><br />" + gsakButtons('GC4K2TC' ,false,'null') + " <br><br /></center></div>");
+m18946.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC8D073' target='geo'>GC8D073</a><br />MBL 6479 </b><br /><i>by: PollyMichele </i><br /><br />Difficulty: 2.0, Terrain: 1.5<br />Size: Micro, Fav Points: 0<br />Elevation: 307 m.<br /><br />" + gsakButtons('GC8D073' ,false,'null') + " <br><br /></center></div>");
+m9765.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC5CXV8' target='geo'>GC5CXV8</a><br />WeSt onYa </b><br /><i>by: iansunwise </i><br /><br />Difficulty: 3.0, Terrain: 1.5<br />Size: Micro, Fav Points: 12<br />Elevation: 365 m.<br /><br />" + gsakButtons('GC5CXV8' ,false,'null') + " <br><br /></center></div>");
+m15522.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC791P3' target='geo'>GC791P3</a><br />WST - Westonia </b><br /><i>by: WheatbeltScience </i><br /><br />Difficulty: 2.0, Terrain: 1.5<br />Size: Micro, Fav Points: 1<br />Elevation: 369 m.<br /><br />" + gsakButtons('GC791P3' ,false,'null') + " <br><br /></center></div>");
+m5186.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC29MWC' target='geo'>GC29MWC</a><br />WanAus 147 - Goldfields Gallop </b><br /><i>by: WanderingAus </i><br /><br />Difficulty: 2.0, Terrain: 1.5<br />Size: Regular, Fav Points: 2<br />Elevation: 428 m.<br /><br />" + gsakButtons('GC29MWC' ,false,'null') + " <br><br /></center></div>");
+m15550.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC7933M' target='geo'>GC7933M</a><br />WST - Golden Pipeline </b><br /><i>by: WheatbeltScience </i><br /><br />Difficulty: 2.5, Terrain: 1.5<br />Size: Micro, Fav Points: 2<br />Elevation: 369 m.<br /><br />" + gsakButtons('GC7933M' ,false,'null') + " <br><br /></center></div>");
+u6486.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC3HBGV' target='geo'>GC3HBGV</a><br />Koorda Crank! </b><br /><i>by: Zodiakhorizon </i><br /><br />Difficulty: 2.0, Terrain: 1.5<br />Size: Micro, Fav Points: 0<br />Elevation: 313 m.<br /><br /><b><i><font color='ff0000'>Archived</font></i></b><br /><br />" + gsakButtons('GC3HBGV' ,false,'null') + " <br><br /></center></div>");
+u14279.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC70QEG' target='geo'>GC70QEG</a><br />A man, his dog and a dead kangaroo </b><br /><i>by: Ikillah </i><br /><br />Difficulty: 1.5, Terrain: 1.5<br />Size: Micro, Fav Points: 0<br />Elevation: 252 m.<br /><br /><b><i><font color='ff0000'>Temporarily Disabled</font></i></b><br /><br />" + gsakButtons('GC70QEG' ,false,'null') + " <br><br /></center></div>");
+u5792.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GCXCGH' target='geo'>GCXCGH</a><br />While ya cachin' </b><br /><i>by: ZED! </i><br /><br />Difficulty: 2.0, Terrain: 2.0<br />Size: Regular, Fav Points: 2<br />Elevation: 318 m.<br /><br /><b><i><font color='ff0000'>Archived</font></i></b><br /><br />" + gsakButtons('GCXCGH' ,false,'null') + " <br><br /></center></div>");
+
+   
+
+   
+
+   
+
+};
+
+</script>
+
+<style type="text/css">
+
+   html, body {
+   height: 100%;
+   overflow: hidden;
+   font-family: Verdana;
+   font-size: 8pt;
+}
+
+body {
+background-color: white;
+margin: 0;
+}
+</style>
+
+</head>
+
+<body onload="initialize()">
+   <div id="map"></div>
+   <div id="hidden_form_container" style="display:none;">
+   <iframe id="upload_target" name="upload_target" src="" style="width:0;height:0;border:0px solid #fff;"></iframe>
+</div>
+  
+</body>
+</html>
