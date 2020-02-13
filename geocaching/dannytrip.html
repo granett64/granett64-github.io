@@ -1,0 +1,295 @@
+<!DOCTYPE HTML>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" >
+<HTML>
+<head>
+<!-- saved from url=(0014)about:internet -->
+<title>GSAK Map - Leaflet</title>
+<style type="text/css">
+      body {
+        margin: 0;
+        font-family: Arial;
+        font-size: 16px;
+      }
+
+    #map {
+      background-color: #e5e3df;
+      height: 100%;
+    }
+    img{
+      border-style: none;
+    }
+    .labels {
+     font-family: "Lucida Grande", "Arial", sans-serif;
+     font-size: 10px;
+     font-weight: bold;
+     padding: 1px !important;
+     white-space: nowrap;
+     border: black !important;
+     /* IE7 Only */
+     *width: 100px;
+     *white-space: collapse;
+   }
+   .childlabels {
+     color: blue !important;
+     font-family: "Lucida Grande", "Arial", sans-serif;
+     font-size: 10px;
+     font-weight: bold;
+     padding: 1px !important;
+     white-space: nowrap;
+     border: black !important;
+     /* IE7 Only */
+     *width: 100px;
+     *white-space: collapse;
+   }
+   .delormelabels {
+    color: orange !important;
+    font-size:18px;
+    font-weight: bold;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0px;
+    cursor: none;
+   }
+
+   .iconstyle {
+        max-width: 70%;
+        max-height: 70%;
+   }
+     
+   .leaflet-touch .leaflet-bar a, .leaflet-touch .leaflet-bar a:hover {
+            width: 20px !important;
+            height: 20px !important;
+            line-height: 20px !important;
+         }
+
+         .leaflet-contextmenu {
+             display: none;
+             box-shadow: 0 1px 7px rgba(0,0,0,0.4);
+             -webkit-border-radius: 4px;
+             border-radius: 4px;
+             padding: 4px 0;
+             background-color: #fff;
+             cursor: default;
+             -webkit-user-select: none;
+             -moz-user-select: none;
+             user-select: none;
+         }
+
+         .leaflet-contextmenu a.leaflet-contextmenu-item {
+             display: block;
+             color: #222;
+             font-size: 11px;
+             line-height: 14px;
+             text-decoration: none;
+             padding: 0 10px;
+             border-top: 1px solid transparent;
+             border-bottom: 1px solid transparent;
+             cursor: default;
+             outline: none;
+         }
+
+         .leaflet-contextmenu a.leaflet-contextmenu-item-disabled {
+             opacity: 0.5;
+         }
+
+         .leaflet-contextmenu a.leaflet-contextmenu-item.over {
+             background-color: #f4f4f4;
+             border-top: 1px solid #f0f0f0;
+             border-bottom: 1px solid #f0f0f0;
+         }
+
+         .leaflet-contextmenu a.leaflet-contextmenu-item-disabled.over {
+             background-color: inherit;
+             border-top: 1px solid transparent;
+             border-bottom: 1px solid transparent;
+         }
+
+         .leaflet-contextmenu-icon {
+             margin: 2px 8px 0 0;
+             width: 16px;
+             height: 16px;
+             float: left;
+             border: 0;
+         }
+
+         .leaflet-contextmenu-separator {
+             border-bottom: 1px solid #ccc;
+             margin: 5px 0;
+         }
+
+         .leaflet-retina .leaflet-control-layers-toggle {
+            background-size: 22px 22px !important;
+         }
+
+         .leaflet-touch .leaflet-control-layers-toggle {
+            width: 30px !important;
+            height: 30px !important;
+         }
+         .leaflet-control-geocoder a {
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            display: block;
+         }
+
+         .leaflet-control-geocoder {
+            box-shadow: 0 1px 7px #999;
+            background: #f8f8f9;
+            -moz-border-radius: 8px;
+            -webkit-border-radius: 8px;
+            border-radius: 8px;
+         }
+
+         .leaflet-control-geocoder a {
+            background-image: url(cacheicons/geocoder.png);
+            width: 26px;
+            height: 26px;
+         }
+
+         .leaflet-touch .leaflet-control-geocoder a {
+            width: 30px;
+            height: 30px;
+         }
+
+         .leaflet-control-geocoder .leaflet-control-geocoder-form,
+         .leaflet-control-geocoder-expanded .leaflet-control-geocoder-toggle {
+            display: none;
+         }
+
+         .leaflet-control-geocoder-expanded .leaflet-control-geocoder-form {
+            display: block;
+            position: relative;
+         }
+
+         .leaflet-control-geocoder-expanded .leaflet-control-geocoder-form {
+            padding: 5px;
+         }
+         .leaflet-control-layers-list {
+            cursor: pointer;
+         }
+
+         .leaflet-draw-draw-polygon {
+            background-position: -34px -5px !important;
+         }
+
+         .leaflet-draw-edit-edit {
+            background-position: -214px -5px !important;
+         }
+
+</style>
+
+<!-----external references----->
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js" crossorigin=""></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css"/>
+<script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js" crossorigin=""></script> 
+
+
+<script src="https://unpkg.com/leaflet.markercluster.freezable@1.0.0/dist/leaflet.markercluster.freezable.js"></script>
+
+<script src="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.css"/>
+
+<script src="https://unpkg.com/leaflet-contextmenu@1.4.0/dist/leaflet.contextmenu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.js"></script>
+
+<script src="https://unpkg.com/togeojson@0.16.0"></script>
+
+<script src="https://unpkg.com/leaflet-filelayer@1.2.0"></script>
+
+<script src="https://gsak.net/stats/maps/leafletmap.js?608"></script>
+
+
+<!-----local references----->
+
+<script type="text/javascript">
+var useScrollWheel = true;
+var silent = '';
+var database = 'Danny%27s%20Camping%20Trip';
+var requiredversion = '3.0';
+var imagefolder = '';
+var showclusters = true;
+var tooltipsvisible = true;
+var clickfrommenu = false;
+var oneclick = false;
+var clusterradius = 80;
+var showclusters = false;
+var showanimation = true;
+var flagmarkers = [];
+var allflagmarkers = [];
+var unavailablemarkers = [];
+var dnfmarkers = [];
+var ownedmarkers = [];
+var circlemarkers = [];
+var childmarkers = [];
+var childcirclemarkers = [];
+
+
+var revNumber = "1.9";
+var scrollwheelZoom_user = true;
+var disableClusteringAtZoom_user = 14;
+var maxClusterRadius_user = 80;
+
+function usermaps() {};
+
+function userpoints() {
+
+   var latlng = new L.LatLng(-32.84586,116.13055);m1 = new L.Marker(latlng, {icon:O_icon, title:"Camp1", draggable: false, zIndexOffset:1000});m1.bindTooltip("Camp1",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m1.cache=true;markers.addLayer(m1);
+var latlng = new L.LatLng(-32.90601,116.16733);m2 = new L.Marker(latlng, {icon:O_icon, title:"Camp2", draggable: false, zIndexOffset:1000});m2.bindTooltip("Camp2",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m2.cache=true;markers.addLayer(m2);
+var latlng = new L.LatLng(-32.88612,116.15558);m3 = new L.Marker(latlng, {icon:O_icon, title:"Camp3", draggable: false, zIndexOffset:1000});m3.bindTooltip("Camp3",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m3.cache=true;markers.addLayer(m3);
+   
+   
+   
+   
+   
+   
+
+   
+
+   
+
+   m1.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='' target='geo'>CP0001</a><br />Camp1 </b><br /><i>by:  </i><br /><br />Difficulty: 1.0, Terrain: 1.0<br />Size: Regular, Fav Points: 0<br />Elevation: 0 m.<br /><br />" + gsakButtons('CP0001' ,false,'null') + " <br><br /></center></div>");
+m3.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='' target='geo'>CP0003</a><br />Camp3 </b><br /><i>by:  </i><br /><br />Difficulty: 1.0, Terrain: 1.0<br />Size: Regular, Fav Points: 0<br />Elevation: 0 m.<br /><br />" + gsakButtons('CP0003' ,false,'null') + " <br><br /></center></div>");
+m2.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='' target='geo'>CP0002</a><br />Camp2 </b><br /><i>by:  </i><br /><br />Difficulty: 1.0, Terrain: 1.0<br />Size: Regular, Fav Points: 0<br />Elevation: 0 m.<br /><br />" + gsakButtons('CP0002' ,false,'null') + " <br><br /></center></div>");
+
+
+   
+
+   
+
+   
+
+};
+
+</script>
+
+<style type="text/css">
+
+   html, body {
+   height: 100%;
+   overflow: hidden;
+   font-family: Verdana;
+   font-size: 8pt;
+}
+
+body {
+background-color: white;
+margin: 0;
+}
+</style>
+
+</head>
+
+<body onload="initialize()">
+   <div id="map"></div>
+   <div id="hidden_form_container" style="display:none;">
+   <iframe id="upload_target" name="upload_target" src="" style="width:0;height:0;border:0px solid #fff;"></iframe>
+</div>
+  
+</body>
+</html>
