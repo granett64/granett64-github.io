@@ -202,7 +202,7 @@
 
 <script src="https://unpkg.com/leaflet-filelayer@1.2.0"></script>
 
-<script src="https://gsak.net/stats/maps/leafletmap.js?608"></script>
+<script src="https://gsak.net/stats/maps/leafletmap.js?6292"></script>
 
 
 <!-----local references----->
@@ -242,6 +242,7 @@ function userpoints() {
    var latlng = new L.LatLng(-32.84586,116.13055);m1 = new L.Marker(latlng, {icon:O_icon, title:"Camp1", draggable: false, zIndexOffset:1000});m1.bindTooltip("Camp1",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m1.cache=true;markers.addLayer(m1);
 var latlng = new L.LatLng(-32.90601,116.16733);m2 = new L.Marker(latlng, {icon:O_icon, title:"Camp2", draggable: false, zIndexOffset:1000});m2.bindTooltip("Camp2",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m2.cache=true;markers.addLayer(m2);
 var latlng = new L.LatLng(-32.88612,116.15558);m3 = new L.Marker(latlng, {icon:O_icon, title:"Camp3", draggable: false, zIndexOffset:1000});m3.bindTooltip("Camp3",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m3.cache=true;markers.addLayer(m3);
+var latlng = new L.LatLng(-32.89982,116.167752);m43 = new L.Marker(latlng, {icon:O_icon, title:"Camp4", draggable: false, zIndexOffset:1000});m43.bindTooltip("Camp4",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m43.cache=true;markers.addLayer(m43);
    
    
    
@@ -253,9 +254,10 @@ var latlng = new L.LatLng(-32.88612,116.15558);m3 = new L.Marker(latlng, {icon:O
 
    
 
-   m1.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='' target='geo'>CP0001</a><br />Camp1 </b><br /><i>by:  </i><br /><br />Difficulty: 1.0, Terrain: 1.0<br />Size: Regular, Fav Points: 0<br />Elevation: 0 m.<br /><br />" + gsakButtons('CP0001' ,false,'null') + " <br><br /></center></div>");
-m3.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='' target='geo'>CP0003</a><br />Camp3 </b><br /><i>by:  </i><br /><br />Difficulty: 1.0, Terrain: 1.0<br />Size: Regular, Fav Points: 0<br />Elevation: 0 m.<br /><br />" + gsakButtons('CP0003' ,false,'null') + " <br><br /></center></div>");
+   m3.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='' target='geo'>CP0003</a><br />Camp3 </b><br /><i>by:  </i><br /><br />Difficulty: 1.0, Terrain: 1.0<br />Size: Regular, Fav Points: 0<br />Elevation: 0 m.<br /><br />" + gsakButtons('CP0003' ,false,'null') + " <br><br /></center></div>");
+m43.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='' target='geo'>CP0004</a><br />Camp4 </b><br /><i>by:  </i><br /><br />Difficulty: 1.0, Terrain: 1.0<br />Size: Regular, Fav Points: 0<br />Elevation: 0 m.<br /><br />" + gsakButtons('CP0004' ,false,'null') + " <br><br /></center></div>");
 m2.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='' target='geo'>CP0002</a><br />Camp2 </b><br /><i>by:  </i><br /><br />Difficulty: 1.0, Terrain: 1.0<br />Size: Regular, Fav Points: 0<br />Elevation: 0 m.<br /><br />" + gsakButtons('CP0002' ,false,'null') + " <br><br /></center></div>");
+m1.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='' target='geo'>CP0001</a><br />Camp1 </b><br /><i>by:  </i><br /><br />Difficulty: 1.0, Terrain: 1.0<br />Size: Regular, Fav Points: 0<br />Elevation: 0 m.<br /><br />" + gsakButtons('CP0001' ,false,'null') + " <br><br /></center></div>");
 
 
    
