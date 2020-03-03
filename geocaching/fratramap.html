@@ -1,0 +1,309 @@
+<!DOCTYPE HTML>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" >
+<HTML>
+<head>
+<!-- saved from url=(0014)about:internet -->
+<title>GSAK Map - Leaflet</title>
+<style type="text/css">
+      body {
+        margin: 0;
+        font-family: Arial;
+        font-size: 16px;
+      }
+
+    #map {
+      background-color: #e5e3df;
+      height: 100%;
+    }
+    img{
+      border-style: none;
+    }
+    .labels {
+     font-family: "Lucida Grande", "Arial", sans-serif;
+     font-size: 10px;
+     font-weight: bold;
+     padding: 1px !important;
+     white-space: nowrap;
+     border: black !important;
+     /* IE7 Only */
+     *width: 100px;
+     *white-space: collapse;
+   }
+   .childlabels {
+     color: blue !important;
+     font-family: "Lucida Grande", "Arial", sans-serif;
+     font-size: 10px;
+     font-weight: bold;
+     padding: 1px !important;
+     white-space: nowrap;
+     border: black !important;
+     /* IE7 Only */
+     *width: 100px;
+     *white-space: collapse;
+   }
+   .delormelabels {
+    color: orange !important;
+    font-size:18px;
+    font-weight: bold;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0px;
+    cursor: none;
+   }
+
+   .iconstyle {
+        max-width: 70%;
+        max-height: 70%;
+   }
+     
+   .leaflet-touch .leaflet-bar a, .leaflet-touch .leaflet-bar a:hover {
+            width: 20px !important;
+            height: 20px !important;
+            line-height: 20px !important;
+         }
+
+         .leaflet-contextmenu {
+             display: none;
+             box-shadow: 0 1px 7px rgba(0,0,0,0.4);
+             -webkit-border-radius: 4px;
+             border-radius: 4px;
+             padding: 4px 0;
+             background-color: #fff;
+             cursor: default;
+             -webkit-user-select: none;
+             -moz-user-select: none;
+             user-select: none;
+         }
+
+         .leaflet-contextmenu a.leaflet-contextmenu-item {
+             display: block;
+             color: #222;
+             font-size: 11px;
+             line-height: 14px;
+             text-decoration: none;
+             padding: 0 10px;
+             border-top: 1px solid transparent;
+             border-bottom: 1px solid transparent;
+             cursor: default;
+             outline: none;
+         }
+
+         .leaflet-contextmenu a.leaflet-contextmenu-item-disabled {
+             opacity: 0.5;
+         }
+
+         .leaflet-contextmenu a.leaflet-contextmenu-item.over {
+             background-color: #f4f4f4;
+             border-top: 1px solid #f0f0f0;
+             border-bottom: 1px solid #f0f0f0;
+         }
+
+         .leaflet-contextmenu a.leaflet-contextmenu-item-disabled.over {
+             background-color: inherit;
+             border-top: 1px solid transparent;
+             border-bottom: 1px solid transparent;
+         }
+
+         .leaflet-contextmenu-icon {
+             margin: 2px 8px 0 0;
+             width: 16px;
+             height: 16px;
+             float: left;
+             border: 0;
+         }
+
+         .leaflet-contextmenu-separator {
+             border-bottom: 1px solid #ccc;
+             margin: 5px 0;
+         }
+
+         .leaflet-retina .leaflet-control-layers-toggle {
+            background-size: 22px 22px !important;
+         }
+
+         .leaflet-touch .leaflet-control-layers-toggle {
+            width: 30px !important;
+            height: 30px !important;
+         }
+         .leaflet-control-geocoder a {
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            display: block;
+         }
+
+         .leaflet-control-geocoder {
+            box-shadow: 0 1px 7px #999;
+            background: #f8f8f9;
+            -moz-border-radius: 8px;
+            -webkit-border-radius: 8px;
+            border-radius: 8px;
+         }
+
+         .leaflet-control-geocoder a {
+            background-image: url(cacheicons/geocoder.png);
+            width: 26px;
+            height: 26px;
+         }
+
+         .leaflet-touch .leaflet-control-geocoder a {
+            width: 30px;
+            height: 30px;
+         }
+
+         .leaflet-control-geocoder .leaflet-control-geocoder-form,
+         .leaflet-control-geocoder-expanded .leaflet-control-geocoder-toggle {
+            display: none;
+         }
+
+         .leaflet-control-geocoder-expanded .leaflet-control-geocoder-form {
+            display: block;
+            position: relative;
+         }
+
+         .leaflet-control-geocoder-expanded .leaflet-control-geocoder-form {
+            padding: 5px;
+         }
+         .leaflet-control-layers-list {
+            cursor: pointer;
+         }
+
+         .leaflet-draw-draw-polygon {
+            background-position: -34px -5px !important;
+         }
+
+         .leaflet-draw-edit-edit {
+            background-position: -214px -5px !important;
+         }
+
+</style>
+
+<!-----external references----->
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js" crossorigin=""></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css"/>
+<script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js" crossorigin=""></script> 
+
+
+<script src="https://unpkg.com/leaflet.markercluster.freezable@1.0.0/dist/leaflet.markercluster.freezable.js"></script>
+
+<script src="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.css"/>
+
+<script src="https://unpkg.com/leaflet-contextmenu@1.4.0/dist/leaflet.contextmenu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.js"></script>
+
+<script src="https://unpkg.com/togeojson@0.16.0"></script>
+
+<script src="https://unpkg.com/leaflet-filelayer@1.2.0"></script>
+
+<script src="https://gsak.net/stats/maps/leafletmap.js?1065"></script>
+
+
+<!-----local references----->
+
+<script type="text/javascript">
+var useScrollWheel = true;
+var silent = '';
+var database = 'MyGeocaches';
+var requiredversion = '3.0';
+var imagefolder = '';
+var showclusters = true;
+var tooltipsvisible = true;
+var clickfrommenu = false;
+var oneclick = false;
+var clusterradius = 80;
+var showclusters = false;
+var showanimation = true;
+var flagmarkers = [];
+var allflagmarkers = [];
+var unavailablemarkers = [];
+var dnfmarkers = [];
+var ownedmarkers = [];
+var circlemarkers = [];
+var childmarkers = [];
+var childcirclemarkers = [];
+
+
+var revNumber = "1.9";
+var scrollwheelZoom_user = true;
+var disableClusteringAtZoom_user = 14;
+var maxClusterRadius_user = 80;
+
+function usermaps() {};
+
+function userpoints() {
+
+   var latlng = new L.LatLng(-30.806117,120.494417);m4665 = new L.Marker(latlng, {icon:T_icon, title:"Wallaroo", draggable: false, zIndexOffset:1000});m4665.bindTooltip("Wallaroo",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m4665.cache=true;markers.addLayer(m4665);
+var latlng = new L.LatLng(-32.0217,120.737667);m6037 = new L.Marker(latlng, {icon:T_icon, title:"McRock", draggable: false, zIndexOffset:1000});m6037.bindTooltip("McRock",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m6037.cache=true;markers.addLayer(m6037);
+var latlng = new L.LatLng(-32.008683,120.78925);m6038 = new L.Marker(latlng, {icon:T_icon, title:"Johnno's Lake", draggable: false, zIndexOffset:1000});m6038.bindTooltip("Johnno's Lake",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m6038.cache=true;markers.addLayer(m6038);
+var latlng = new L.LatLng(-33.648217,120.4466);m6039 = new L.Marker(latlng, {icon:T_icon, title:"Look out for rabbits", draggable: false, zIndexOffset:1000});m6039.bindTooltip("Look out for rabbits",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m6039.cache=true;markers.addLayer(m6039);
+var latlng = new L.LatLng(-28.2096,114.3118);m6040 = new L.Marker(latlng, {icon:T_f_icon, title:"Lead to Lynton - Convict History", draggable: false, zIndexOffset:1000});m6040.bindTooltip("Lead to Lynton - Convict History",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m6040.cache=true;markers.addLayer(m6040);
+var latlng = new L.LatLng(-28.19005,114.2503);m8506 = new L.Marker(latlng, {icon:T_icon, title:"A Port of Call", draggable: false, zIndexOffset:1000});m8506.bindTooltip("A Port of Call",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m8506.cache=true;markers.addLayer(m8506);
+var latlng = new L.LatLng(-28.18475,114.258017);m8507 = new L.Marker(latlng, {icon:T_icon, title:"Pinkalicious", draggable: false, zIndexOffset:1000});m8507.bindTooltip("Pinkalicious",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m8507.cache=true;markers.addLayer(m8507);
+var latlng = new L.LatLng(-28.187067,114.253733);m11560 = new L.Marker(latlng, {icon:T_icon, title:"BlackRat 8 PORT GREGORY", draggable: false, zIndexOffset:1000});m11560.bindTooltip("BlackRat 8 PORT GREGORY",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m11560.cache=true;markers.addLayer(m11560);
+var latlng = new L.LatLng(-28.1892,114.24865);m13887 = new L.Marker(latlng, {icon:T_icon, title:"~Mary Queen of Scots~", draggable: false, zIndexOffset:1000});m13887.bindTooltip("~Mary Queen of Scots~",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m13887.cache=true;markers.addLayer(m13887);
+var latlng = new L.LatLng(-28.1856,114.253617);m16571 = new L.Marker(latlng, {icon:R_icon, title:"Pink Lake", draggable: false, zIndexOffset:1000});m16571.bindTooltip("Pink Lake",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m16571.cache=true;markers.addLayer(m16571);
+   
+   
+   
+   
+   
+   
+
+   
+
+   
+
+   m6037.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=ec02bf1b-8048-4514-9174-5dc670eda7db' target='geo'>GCN1B3</a><br />McRock </b><br /><i>by: where's wally's </i><br /><br />Difficulty: 1.5, Terrain: 2.5<br />Size: Regular, Fav Points: 2<br />Elevation: 356 m.<br /><br />" + gsakButtons('GCN1B3' ,false,'null') + " <br><br /></center></div>");
+m6038.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=d1a2dd9f-1a94-442d-8492-517dd6382bc6' target='geo'>GC1GZ3A</a><br />Johnno's Lake </b><br /><i>by: Lyn Pat and Nathan </i><br /><br />Difficulty: 3.0, Terrain: 3.0<br />Size: Small, Fav Points: 3<br />Elevation: 315 m.<br /><br />" + gsakButtons('GC1GZ3A' ,false,'null') + " <br><br /></center></div>");
+m4665.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=cdf0aaea-f2e1-4ee1-8ee2-0b5423afa99f' target='geo'>GC333HY</a><br />Wallaroo </b><br /><i>by: Diaboli-Kal </i><br /><br />Difficulty: 2.0, Terrain: 2.5<br />Size: Regular, Fav Points: 1<br />Elevation: 498 m.<br /><br />" + gsakButtons('GC333HY' ,false,'null') + " <br><br /></center></div>");
+m6039.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=786604ef-14c1-405d-b9f9-9b6dccaadd17' target='geo'>GC1KPNJ</a><br />Look out for rabbits </b><br /><i>by: location-challanged </i><br /><br />Difficulty: 1.5, Terrain: 1.5<br />Size: Small, Fav Points: 3<br />Elevation: 217 m.<br /><br />" + gsakButtons('GC1KPNJ' ,false,'null') + " <br><br /></center></div>");
+m6040.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=b8b31e56-41f1-4482-85d4-488d805c2b56' target='geo'>GCK1HZ</a><br />Lead to Lynton - Convict History </b><br /><i>by: Lyn Pat and Nathan </i><br /><br />Difficulty: 2.5, Terrain: 2.5<br />Size: Regular, Fav Points: 16<br />Elevation: 18 m.<br /><br /><i>You found this cache on: 17/04/2016</i><br /><br />" + gsakButtons('GCK1HZ' ,false,'null') + " <br><br /></center></div>");
+m8507.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=6481903e-3594-4f43-9b1b-425b5377b42a' target='geo'>GC53HC1</a><br />Pinkalicious </b><br /><i>by: TeamBastholm </i><br /><br />Difficulty: 1.5, Terrain: 1.5<br />Size: Small, Fav Points: 10<br />Elevation: 6 m.<br /><br />" + gsakButtons('GC53HC1' ,false,'null') + " <br><br /></center></div>");
+m11560.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=450692c6-e73d-4b1d-bf09-42d767495c83' target='geo'>GC62VMC</a><br />BlackRat 8 PORT GREGORY </b><br /><i>by: Blackrat1414 </i><br /><br />Difficulty: 1.5, Terrain: 2.5<br />Size: Regular, Fav Points: 2<br />Elevation: 11 m.<br /><br />" + gsakButtons('GC62VMC' ,false,'null') + " <br><br /></center></div>");
+m8506.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=3e68916b-2a55-4c1c-b12d-2404efeb7950' target='geo'>GC53HB9</a><br />A Port of Call </b><br /><i>by: TeamBastholm </i><br /><br />Difficulty: 1.5, Terrain: 1.5<br />Size: Small, Fav Points: 0<br />Elevation: 3 m.<br /><br />" + gsakButtons('GC53HB9' ,false,'null') + " <br><br /></center></div>");
+m16571.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=4eea1dab-a9f1-435f-b5f5-6af1d560720a' target='geo'>GC7KG8Q</a><br />Pink Lake </b><br /><i>by: Matthias999 </i><br /><br />Difficulty: 2.0, Terrain: 1.5<br />Size: Other, Fav Points: 2<br />Elevation: 7 m.<br /><br />" + gsakButtons('GC7KG8Q' ,false,'null') + " <br><br /></center></div>");
+m13887.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=fe825b59-ba61-4cd6-9c1a-d685ba0626c9' target='geo'>GC6T9KF</a><br />~Mary Queen of Scots~ </b><br /><i>by: richlink </i><br /><br />Difficulty: 1.5, Terrain: 1.5<br />Size: Small, Fav Points: 0<br />Elevation: 7 m.<br /><br />" + gsakButtons('GC6T9KF' ,false,'null') + " <br><br /></center></div>");
+
+
+   
+
+   
+
+   
+
+};
+
+</script>
+
+<style type="text/css">
+
+   html, body {
+   height: 100%;
+   overflow: hidden;
+   font-family: Verdana;
+   font-size: 8pt;
+}
+
+body {
+background-color: white;
+margin: 0;
+}
+</style>
+
+</head>
+
+<body onload="initialize()">
+   <div id="map"></div>
+   <div id="hidden_form_container" style="display:none;">
+   <iframe id="upload_target" name="upload_target" src="" style="width:0;height:0;border:0px solid #fff;"></iframe>
+</div>
+  
+</body>
+</html>
