@@ -1,0 +1,361 @@
+<!DOCTYPE HTML>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" >
+<HTML>
+<head>
+<!-- saved from url=(0014)about:internet -->
+<title>GSAK Map - Leaflet</title>
+<style type="text/css">
+      body {
+        margin: 0;
+        font-family: Arial;
+        font-size: 16px;
+      }
+
+    #map {
+      background-color: #e5e3df;
+      height: 100%;
+    }
+    img{
+      border-style: none;
+    }
+    .labels {
+     font-family: "Lucida Grande", "Arial", sans-serif;
+     font-size: 10px;
+     font-weight: bold;
+     padding: 1px !important;
+     white-space: nowrap;
+     border: black !important;
+     /* IE7 Only */
+     *width: 100px;
+     *white-space: collapse;
+   }
+   .childlabels {
+     color: blue !important;
+     font-family: "Lucida Grande", "Arial", sans-serif;
+     font-size: 10px;
+     font-weight: bold;
+     padding: 1px !important;
+     white-space: nowrap;
+     border: black !important;
+     /* IE7 Only */
+     *width: 100px;
+     *white-space: collapse;
+   }
+   .delormelabels {
+    color: orange !important;
+    font-size:18px;
+    font-weight: bold;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0px;
+    cursor: none;
+   }
+
+   .iconstyle {
+        max-width: 70%;
+        max-height: 70%;
+   }
+     
+   .leaflet-touch .leaflet-bar a, .leaflet-touch .leaflet-bar a:hover {
+            width: 20px !important;
+            height: 20px !important;
+            line-height: 20px !important;
+         }
+
+         .leaflet-contextmenu {
+             display: none;
+             box-shadow: 0 1px 7px rgba(0,0,0,0.4);
+             -webkit-border-radius: 4px;
+             border-radius: 4px;
+             padding: 4px 0;
+             background-color: #fff;
+             cursor: default;
+             -webkit-user-select: none;
+             -moz-user-select: none;
+             user-select: none;
+         }
+
+         .leaflet-contextmenu a.leaflet-contextmenu-item {
+             display: block;
+             color: #222;
+             font-size: 11px;
+             line-height: 14px;
+             text-decoration: none;
+             padding: 0 10px;
+             border-top: 1px solid transparent;
+             border-bottom: 1px solid transparent;
+             cursor: default;
+             outline: none;
+         }
+
+         .leaflet-contextmenu a.leaflet-contextmenu-item-disabled {
+             opacity: 0.5;
+         }
+
+         .leaflet-contextmenu a.leaflet-contextmenu-item.over {
+             background-color: #f4f4f4;
+             border-top: 1px solid #f0f0f0;
+             border-bottom: 1px solid #f0f0f0;
+         }
+
+         .leaflet-contextmenu a.leaflet-contextmenu-item-disabled.over {
+             background-color: inherit;
+             border-top: 1px solid transparent;
+             border-bottom: 1px solid transparent;
+         }
+
+         .leaflet-contextmenu-icon {
+             margin: 2px 8px 0 0;
+             width: 16px;
+             height: 16px;
+             float: left;
+             border: 0;
+         }
+
+         .leaflet-contextmenu-separator {
+             border-bottom: 1px solid #ccc;
+             margin: 5px 0;
+         }
+
+         .leaflet-retina .leaflet-control-layers-toggle {
+            background-size: 22px 22px !important;
+         }
+
+         .leaflet-touch .leaflet-control-layers-toggle {
+            width: 30px !important;
+            height: 30px !important;
+         }
+         .leaflet-control-geocoder a {
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            display: block;
+         }
+
+         .leaflet-control-geocoder {
+            box-shadow: 0 1px 7px #999;
+            background: #f8f8f9;
+            -moz-border-radius: 8px;
+            -webkit-border-radius: 8px;
+            border-radius: 8px;
+         }
+
+         .leaflet-control-geocoder a {
+            background-image: url(cacheicons/geocoder.png);
+            width: 26px;
+            height: 26px;
+         }
+
+         .leaflet-touch .leaflet-control-geocoder a {
+            width: 30px;
+            height: 30px;
+         }
+
+         .leaflet-control-geocoder .leaflet-control-geocoder-form,
+         .leaflet-control-geocoder-expanded .leaflet-control-geocoder-toggle {
+            display: none;
+         }
+
+         .leaflet-control-geocoder-expanded .leaflet-control-geocoder-form {
+            display: block;
+            position: relative;
+         }
+
+         .leaflet-control-geocoder-expanded .leaflet-control-geocoder-form {
+            padding: 5px;
+         }
+         .leaflet-control-layers-list {
+            cursor: pointer;
+         }
+
+         .leaflet-draw-draw-polygon {
+            background-position: -34px -5px !important;
+         }
+
+         .leaflet-draw-edit-edit {
+            background-position: -214px -5px !important;
+         }
+
+</style>
+
+<!-----external references----->
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js" crossorigin=""></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css"/>
+<script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js" crossorigin=""></script> 
+
+
+<script src="https://unpkg.com/leaflet.markercluster.freezable@1.0.0/dist/leaflet.markercluster.freezable.js"></script>
+
+<script src="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.css"/>
+
+<script src="https://unpkg.com/leaflet-contextmenu@1.4.0/dist/leaflet.contextmenu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.js"></script>
+
+<script src="https://unpkg.com/togeojson@0.16.0"></script>
+
+<script src="https://unpkg.com/leaflet-filelayer@1.2.0"></script>
+
+<script src="https://gsak.net/stats/maps/leafletmap.js?3448"></script>
+
+
+<!-----local references----->
+
+<script type="text/javascript">
+var useScrollWheel = true;
+var silent = '';
+var database = 'MyGeocaches';
+var requiredversion = '3.0';
+var imagefolder = '';
+var showclusters = true;
+var tooltipsvisible = true;
+var clickfrommenu = false;
+var oneclick = false;
+var clusterradius = 80;
+var showclusters = false;
+var showanimation = true;
+var flagmarkers = [];
+var allflagmarkers = [];
+var unavailablemarkers = [];
+var dnfmarkers = [];
+var ownedmarkers = [];
+var circlemarkers = [];
+var childmarkers = [];
+var childcirclemarkers = [];
+
+
+var revNumber = "1.9";
+var scrollwheelZoom_user = true;
+var disableClusteringAtZoom_user = 14;
+var maxClusterRadius_user = 80;
+
+function usermaps() {};
+
+function userpoints() {
+
+   var latlng = new L.LatLng(-32.060433,116.50115);m17917 = new L.Marker(latlng, {icon:U_f_e_icon, title:"4WD 127 FOTT Go Bush", draggable: false, zIndexOffset:1000});m17917.bindTooltip("4WD 127 FOTT Go Bush",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m17917.cache=true;markers.addLayer(m17917);
+var latlng = new L.LatLng(-32.03455,116.549267);m17924 = new L.Marker(latlng, {icon:U_f_e_icon, title:"4WD 095 FOTT Go Bush", draggable: false, zIndexOffset:1000});m17924.bindTooltip("4WD 095 FOTT Go Bush",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m17924.cache=true;markers.addLayer(m17924);
+var latlng = new L.LatLng(-32.045233,116.49025);m17930 = new L.Marker(latlng, {icon:U_f_e_icon, title:"4WD 123 FOTT Go Bush", draggable: false, zIndexOffset:1000});m17930.bindTooltip("4WD 123 FOTT Go Bush",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m17930.cache=true;markers.addLayer(m17930);
+var latlng = new L.LatLng(-32.0247,116.533733);m17934 = new L.Marker(latlng, {icon:U_f_e_icon, title:"4WD 115 FOTT Go Bush", draggable: false, zIndexOffset:1000});m17934.bindTooltip("4WD 115 FOTT Go Bush",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m17934.cache=true;markers.addLayer(m17934);
+var latlng = new L.LatLng(-32.076783,116.476533);m17935 = new L.Marker(latlng, {icon:U_f_e_icon, title:"4WD 072 FOTT Go Bush", draggable: false, zIndexOffset:1000});m17935.bindTooltip("4WD 072 FOTT Go Bush",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m17935.cache=true;markers.addLayer(m17935);
+var latlng = new L.LatLng(-32.066033,116.497433);m17938 = new L.Marker(latlng, {icon:U_f_e_icon, title:"4WD 076 FOTT Go Bush", draggable: false, zIndexOffset:1000});m17938.bindTooltip("4WD 076 FOTT Go Bush",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m17938.cache=true;markers.addLayer(m17938);
+var latlng = new L.LatLng(-32.0188,116.557933);m17948 = new L.Marker(latlng, {icon:U_f_e_icon, title:"4WD 183 FOTT Go Bush", draggable: false, zIndexOffset:1000});m17948.bindTooltip("4WD 183 FOTT Go Bush",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m17948.cache=true;markers.addLayer(m17948);
+var latlng = new L.LatLng(-32.060833,116.467633);m17949 = new L.Marker(latlng, {icon:U_f_e_icon, title:"4WD 068 FOTT Go Bush", draggable: false, zIndexOffset:1000});m17949.bindTooltip("4WD 068 FOTT Go Bush",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m17949.cache=true;markers.addLayer(m17949);
+var latlng = new L.LatLng(-32.026417,116.55095);m17950 = new L.Marker(latlng, {icon:U_f_e_icon, title:"4WD 099 FOTT Go Bush", draggable: false, zIndexOffset:1000});m17950.bindTooltip("4WD 099 FOTT Go Bush",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m17950.cache=true;markers.addLayer(m17950);
+var latlng = new L.LatLng(-32.02345,116.48865);m17952 = new L.Marker(latlng, {icon:U_f_e_icon, title:"4WD 119 FOTT Go Bush", draggable: false, zIndexOffset:1000});m17952.bindTooltip("4WD 119 FOTT Go Bush",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m17952.cache=true;markers.addLayer(m17952);
+var latlng = new L.LatLng(-32.059967,116.517767);m17962 = new L.Marker(latlng, {icon:U_f_e_icon, title:"4WD 080 FOTT Go Bush", draggable: false, zIndexOffset:1000});m17962.bindTooltip("4WD 080 FOTT Go Bush",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m17962.cache=true;markers.addLayer(m17962);
+var latlng = new L.LatLng(-32.013967,116.4928);m17966 = new L.Marker(latlng, {icon:U_f_e_icon, title:"4WD 111 FOTT Go Bush", draggable: false, zIndexOffset:1000});m17966.bindTooltip("4WD 111 FOTT Go Bush",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m17966.cache=true;markers.addLayer(m17966);
+var latlng = new L.LatLng(-32.011417,116.571433);m17972 = new L.Marker(latlng, {icon:U_f_e_icon, title:"4WD 022 FOTT Go Bush", draggable: false, zIndexOffset:1000});m17972.bindTooltip("4WD 022 FOTT Go Bush",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m17972.cache=true;markers.addLayer(m17972);
+var latlng = new L.LatLng(-32.0038,116.4917);m17979 = new L.Marker(latlng, {icon:U_f_e_icon, title:"4WD 131 FOTT Go Bush", draggable: false, zIndexOffset:1000});m17979.bindTooltip("4WD 131 FOTT Go Bush",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m17979.cache=true;markers.addLayer(m17979);
+var latlng = new L.LatLng(-32.040967,116.55325);m17980 = new L.Marker(latlng, {icon:U_f_e_icon, title:"4WD 018 FOTT Go Bush", draggable: false, zIndexOffset:1000});m17980.bindTooltip("4WD 018 FOTT Go Bush",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m17980.cache=true;markers.addLayer(m17980);
+var latlng = new L.LatLng(-32.001133,116.528);m17983 = new L.Marker(latlng, {icon:U_f_e_icon, title:"4WD 103 FOTT Go Bush", draggable: false, zIndexOffset:1000});m17983.bindTooltip("4WD 103 FOTT Go Bush",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m17983.cache=true;markers.addLayer(m17983);
+var latlng = new L.LatLng(-31.9944,116.472733);m17988 = new L.Marker(latlng, {icon:U_f_e_icon, title:"4WD 147 FOTT Go Bush", draggable: false, zIndexOffset:1000});m17988.bindTooltip("4WD 147 FOTT Go Bush",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m17988.cache=true;markers.addLayer(m17988);
+var latlng = new L.LatLng(-32.034617,116.4654);m17991 = new L.Marker(latlng, {icon:U_f_e_icon, title:"4WD 064 FOTT Go Bush", draggable: false, zIndexOffset:1000});m17991.bindTooltip("4WD 064 FOTT Go Bush",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m17991.cache=true;markers.addLayer(m17991);
+var latlng = new L.LatLng(-31.997567,116.5088);m17992 = new L.Marker(latlng, {icon:U_f_e_icon, title:"4WD 107 FOTT Go Bush", draggable: false, zIndexOffset:1000});m17992.bindTooltip("4WD 107 FOTT Go Bush",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m17992.cache=true;markers.addLayer(m17992);
+var latlng = new L.LatLng(-31.991133,116.543467);m17996 = new L.Marker(latlng, {icon:U_f_e_icon, title:"4WD 026 FOTT Go Bush", draggable: false, zIndexOffset:1000});m17996.bindTooltip("4WD 026 FOTT Go Bush",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m17996.cache=true;markers.addLayer(m17996);
+var latlng = new L.LatLng(-32.050967,116.563883);m17998 = new L.Marker(latlng, {icon:U_f_e_icon, title:"4WD 084 FOTT Go Bush", draggable: false, zIndexOffset:1000});m17998.bindTooltip("4WD 084 FOTT Go Bush",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m17998.cache=true;markers.addLayer(m17998);
+var latlng = new L.LatLng(-31.991733,116.527017);m17999 = new L.Marker(latlng, {icon:U_f_e_icon, title:"4WD 030 FOTT Go Bush", draggable: false, zIndexOffset:1000});m17999.bindTooltip("4WD 030 FOTT Go Bush",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m17999.cache=true;markers.addLayer(m17999);
+var latlng = new L.LatLng(-31.995817,116.481333);m18012 = new L.Marker(latlng, {icon:U_f_e_icon, title:"4WD 135 FOTT Go Bush", draggable: false, zIndexOffset:1000});m18012.bindTooltip("4WD 135 FOTT Go Bush",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m18012.cache=true;markers.addLayer(m18012);
+var latlng = new L.LatLng(-31.979217,116.47455);m18015 = new L.Marker(latlng, {icon:U_f_e_icon, title:"4WD 034 FOTT Go Bush", draggable: false, zIndexOffset:1000});m18015.bindTooltip("4WD 034 FOTT Go Bush",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m18015.cache=true;markers.addLayer(m18015);
+var latlng = new L.LatLng(-32.0522,116.569667);m18018 = new L.Marker(latlng, {icon:U_f_e_icon, title:"4WD 014 FOTT Go Bush", draggable: false, zIndexOffset:1000});m18018.bindTooltip("4WD 014 FOTT Go Bush",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m18018.cache=true;markers.addLayer(m18018);
+var latlng = new L.LatLng(-32.006467,116.466067);m18023 = new L.Marker(latlng, {icon:U_f_e_icon, title:"4WD 143 FOTT Go Bush", draggable: false, zIndexOffset:1000});m18023.bindTooltip("4WD 143 FOTT Go Bush",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m18023.cache=true;markers.addLayer(m18023);
+var latlng = new L.LatLng(-32.02825,116.446033);m18026 = new L.Marker(latlng, {icon:U_f_e_icon, title:"4WD 060 FOTT Go Bush", draggable: false, zIndexOffset:1000});m18026.bindTooltip("4WD 060 FOTT Go Bush",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m18026.cache=true;markers.addLayer(m18026);
+var latlng = new L.LatLng(-32.060867,116.5851);m18028 = new L.Marker(latlng, {icon:U_f_e_icon, title:"4WD 187 FOTT Go Bush", draggable: false, zIndexOffset:1000});m18028.bindTooltip("4WD 187 FOTT Go Bush",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m18028.cache=true;markers.addLayer(m18028);
+var latlng = new L.LatLng(-31.999717,116.442783);m18034 = new L.Marker(latlng, {icon:U_f_e_icon, title:"4WD 139 FOTT Go Bush", draggable: false, zIndexOffset:1000});m18034.bindTooltip("4WD 139 FOTT Go Bush",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m18034.cache=true;markers.addLayer(m18034);
+var latlng = new L.LatLng(-31.955067,116.467983);m18041 = new L.Marker(latlng, {icon:U_f_e_icon, title:"4WD 039 FOTT Go Bush", draggable: false, zIndexOffset:1000});m18041.bindTooltip("4WD 039 FOTT Go Bush",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m18041.cache=true;markers.addLayer(m18041);
+var latlng = new L.LatLng(-32.077933,116.58675);m18045 = new L.Marker(latlng, {icon:U_f_e_icon, title:"4WD 091 FOTT Go Bush", draggable: false, zIndexOffset:1000});m18045.bindTooltip("4WD 091 FOTT Go Bush",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m18045.cache=true;markers.addLayer(m18045);
+var latlng = new L.LatLng(-32.011017,116.432817);m18048 = new L.Marker(latlng, {icon:U_f_e_icon, title:"4WD 047 FOTT Go Bush", draggable: false, zIndexOffset:1000});m18048.bindTooltip("4WD 047 FOTT Go Bush",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m18048.cache=true;markers.addLayer(m18048);
+var latlng = new L.LatLng(-32.019683,116.422467);m18054 = new L.Marker(latlng, {icon:U_f_e_icon, title:"4WD 051 FOTT Go Bush", draggable: false, zIndexOffset:1000});m18054.bindTooltip("4WD 051 FOTT Go Bush",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m18054.cache=true;markers.addLayer(m18054);
+var latlng = new L.LatLng(-32.085083,116.584433);m18056 = new L.Marker(latlng, {icon:U_f_e_icon, title:"4WD 005 FOTT Go Bush", draggable: false, zIndexOffset:1000});m18056.bindTooltip("4WD 005 FOTT Go Bush",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m18056.cache=true;markers.addLayer(m18056);
+var latlng = new L.LatLng(-32.000167,116.433033);m18057 = new L.Marker(latlng, {icon:U_f_e_icon, title:"4WD 043 FOTT Go Bush", draggable: false, zIndexOffset:1000});m18057.bindTooltip("4WD 043 FOTT Go Bush",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m18057.cache=true;markers.addLayer(m18057);
+var latlng = new L.LatLng(-32.0638,116.58885);m18060 = new L.Marker(latlng, {icon:U_f_e_icon, title:"4WD 001 FOTT Go Bush", draggable: false, zIndexOffset:1000});m18060.bindTooltip("4WD 001 FOTT Go Bush",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m18060.cache=true;markers.addLayer(m18060);
+   
+   
+   
+   
+   
+   
+
+   
+
+   
+
+   m18054.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=e386196e-b060-4962-918d-1e30391aca60' target='geo'>GC83AMN</a><br />4WD 051 FOTT Go Bush </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 1.5, Terrain: 2.5<br />Size: Micro, Fav Points: 0<br />Elevation: 303 m.<br /><br /><i>You found this cache on: 07/09/2019</i><br /><br />" + gsakButtons('GC83AMN' ,false,'null') + " <br><br /></center></div>");
+m18048.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=28035f44-4ca7-4efb-a028-0d26c9a715b0' target='geo'>GC83AGV</a><br />4WD 047 FOTT Go Bush </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 1.5, Terrain: 4.5<br />Size: Micro, Fav Points: 0<br />Elevation: 337 m.<br /><br /><i>You found this cache on: 07/09/2019</i><br /><br />" + gsakButtons('GC83AGV' ,false,'null') + " <br><br /></center></div>");
+m18057.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=e0186b87-6c7c-4afd-bf10-5bf508f08ab4' target='geo'>GC83AGQ</a><br />4WD 043 FOTT Go Bush </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 2.0, Terrain: 4.5<br />Size: Micro, Fav Points: 0<br />Elevation: 324 m.<br /><br /><i>You found this cache on: 07/09/2019</i><br /><br />" + gsakButtons('GC83AGQ' ,false,'null') + " <br><br /></center></div>");
+m18026.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=9ea620bf-03a1-4413-b610-21763f61e86b' target='geo'>GC83AMR</a><br />4WD 060 FOTT Go Bush </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 2.0, Terrain: 2.5<br />Size: Micro, Fav Points: 1<br />Elevation: 336 m.<br /><br /><i>You found this cache on: 07/09/2019</i><br /><br />" + gsakButtons('GC83AMR' ,false,'null') + " <br><br /></center></div>");
+m18034.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=8feeaf2e-98ae-4f1f-9aa2-194de3e701c5' target='geo'>GC83CFN</a><br />4WD 139 FOTT Go Bush </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 1.5, Terrain: 4.5<br />Size: Micro, Fav Points: 0<br />Elevation: 312 m.<br /><br /><i>You found this cache on: 07/09/2019</i><br /><br />" + gsakButtons('GC83CFN' ,false,'null') + " <br><br /></center></div>");
+m18023.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=712a6075-22c7-410e-9e97-7d101984bf53' target='geo'>GC83CFX</a><br />4WD 143 FOTT Go Bush </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 1.5, Terrain: 4.5<br />Size: Micro, Fav Points: 0<br />Elevation: 277 m.<br /><br /><i>You found this cache on: 07/09/2019</i><br /><br />" + gsakButtons('GC83CFX' ,false,'null') + " <br><br /></center></div>");
+m17991.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=a7db26c7-946d-4de7-82b6-26f13b89f9cc' target='geo'>GC83AMV</a><br />4WD 064 FOTT Go Bush </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 4.5, Terrain: 2.5<br />Size: Micro, Fav Points: 0<br />Elevation: 340 m.<br /><br /><i>You found this cache on: 07/09/2019</i><br /><br />" + gsakButtons('GC83AMV' ,false,'null') + " <br><br /></center></div>");
+m17988.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=ada4a7ec-0221-4bb9-b8a8-dc5478d20059' target='geo'>GC83NXK</a><br />4WD 147 FOTT Go Bush </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 2.5, Terrain: 4.5<br />Size: Micro, Fav Points: 0<br />Elevation: 277 m.<br /><br /><i>You found this cache on: 07/09/2019</i><br /><br />" + gsakButtons('GC83NXK' ,false,'null') + " <br><br /></center></div>");
+m18012.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=1cfda169-62cf-43cd-8559-6a2a407cacd0' target='geo'>GC83CFJ</a><br />4WD 135 FOTT Go Bush </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 3.0, Terrain: 4.5<br />Size: Micro, Fav Points: 0<br />Elevation: 285 m.<br /><br /><i>You found this cache on: 07/09/2019</i><br /><br />" + gsakButtons('GC83CFJ' ,false,'null') + " <br><br /></center></div>");
+m17949.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=05a48400-c52e-4eed-902b-e3297eb8e69c' target='geo'>GC83CDB</a><br />4WD 068 FOTT Go Bush </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 2.5, Terrain: 4.5<br />Size: Micro, Fav Points: 0<br />Elevation: 310 m.<br /><br /><i>You found this cache on: 07/09/2019</i><br /><br />" + gsakButtons('GC83CDB' ,false,'null') + " <br><br /></center></div>");
+m17952.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=75ed73fd-9468-4d65-8fed-f5914262362c' target='geo'>GC83CEZ</a><br />4WD 119 FOTT Go Bush </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 1.5, Terrain: 4.5<br />Size: Micro, Fav Points: 0<br />Elevation: 332 m.<br /><br /><i>You found this cache on: 07/09/2019</i><br /><br />" + gsakButtons('GC83CEZ' ,false,'null') + " <br><br /></center></div>");
+m18015.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=6418671a-51d1-4373-910c-825dae54716f' target='geo'>GC83AGH</a><br />4WD 034 FOTT Go Bush </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 1.5, Terrain: 4.5<br />Size: Micro, Fav Points: 0<br />Elevation: 274 m.<br /><br /><i>You found this cache on: 07/09/2019</i><br /><br />" + gsakButtons('GC83AGH' ,false,'null') + " <br><br /></center></div>");
+m17966.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=7573d925-9d8a-4c09-9079-41a809982824' target='geo'>GC83NXE</a><br />4WD 111 FOTT Go Bush </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 1.5, Terrain: 4.5<br />Size: Micro, Fav Points: 0<br />Elevation: 377 m.<br /><br /><i>You found this cache on: 07/09/2019</i><br /><br />" + gsakButtons('GC83NXE' ,false,'null') + " <br><br /></center></div>");
+m17979.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=be8b1557-e6ba-4d4d-b4e0-0571b18f3322' target='geo'>GC83CFG</a><br />4WD 131 FOTT Go Bush </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 2.5, Terrain: 4.5<br />Size: Micro, Fav Points: 0<br />Elevation: 312 m.<br /><br /><i>You found this cache on: 07/09/2019</i><br /><br />" + gsakButtons('GC83CFG' ,false,'null') + " <br><br /></center></div>");
+m17930.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=1f386b58-8e2f-4075-b44e-7b3e1a68057f' target='geo'>GC83CF2</a><br />4WD 123 FOTT Go Bush </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 4.5, Terrain: 4.5<br />Size: Micro, Fav Points: 3<br />Elevation: 285 m.<br /><br /><i>You found this cache on: 07/09/2019</i><br /><br />" + gsakButtons('GC83CF2' ,false,'null') + " <br><br /></center></div>");
+m17935.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=921a3cf2-e8d6-4eab-a75a-e2e84b2457a4' target='geo'>GC83B7W</a><br />4WD 072 FOTT Go Bush </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 4.0, Terrain: 2.5<br />Size: Micro, Fav Points: 0<br />Elevation: 251 m.<br /><br /><i>You found this cache on: 07/09/2019</i><br /><br />" + gsakButtons('GC83B7W' ,false,'null') + " <br><br /></center></div>");
+m18041.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=98505631-e032-4969-9ada-b17394808336' target='geo'>GC83AGP</a><br />4WD 039 FOTT Go Bush </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 2.5, Terrain: 4.5<br />Size: Micro, Fav Points: 2<br />Elevation: 243 m.<br /><br /><i>You found this cache on: 07/09/2019</i><br /><br />" + gsakButtons('GC83AGP' ,false,'null') + " <br><br /></center></div>");
+m17992.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=8ddcc7f4-6647-4b06-a15f-947b78afb11b' target='geo'>GC83P00</a><br />4WD 107 FOTT Go Bush </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 3.0, Terrain: 4.5<br />Size: Micro, Fav Points: 0<br />Elevation: 291 m.<br /><br /><i>You found this cache on: 07/09/2019</i><br /><br />" + gsakButtons('GC83P00' ,false,'null') + " <br><br /></center></div>");
+m17917.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=baaae123-f283-45ee-bd26-ff65bb13ef08' target='geo'>GC83CF3</a><br />4WD 127 FOTT Go Bush </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 2.0, Terrain: 2.5<br />Size: Micro, Fav Points: 0<br />Elevation: 263 m.<br /><br /><i>You found this cache on: 27/09/2020</i><br /><br />" + gsakButtons('GC83CF3' ,false,'null') + " <br><br /></center></div>");
+m17938.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=8f22b7e0-4828-42b8-aecf-2b073d9733c0' target='geo'>GC83CDG</a><br />4WD 076 FOTT Go Bush </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 2.0, Terrain: 2.5<br />Size: Micro, Fav Points: 0<br />Elevation: 260 m.<br /><br /><i>You found this cache on: 07/09/2019</i><br /><br />" + gsakButtons('GC83CDG' ,false,'null') + " <br><br /></center></div>");
+m17962.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=4b15c83a-a7da-45e3-90bb-fc9023e327df' target='geo'>GC83CE1</a><br />4WD 080 FOTT Go Bush </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 3.5, Terrain: 2.5<br />Size: Micro, Fav Points: 1<br />Elevation: 260 m.<br /><br /><i>You found this cache on: 07/09/2019</i><br /><br />" + gsakButtons('GC83CE1' ,false,'null') + " <br><br /></center></div>");
+m17983.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=1b6a2ae9-bd6f-4fec-9cec-4de952374235' target='geo'>GC83NXD</a><br />4WD 103 FOTT Go Bush </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 2.0, Terrain: 4.5<br />Size: Regular, Fav Points: 11<br />Elevation: 266 m.<br /><br /><i>You found this cache on: 07/09/2019</i><br /><br />" + gsakButtons('GC83NXD' ,false,'null') + " <br><br /></center></div>");
+m17999.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=d941ba7a-24e0-4a36-a9d4-5a08891c5dfb' target='geo'>GC83MD2</a><br />4WD 030 FOTT Go Bush </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 1.5, Terrain: 4.5<br />Size: Micro, Fav Points: 1<br />Elevation: 290 m.<br /><br /><i>You found this cache on: 07/09/2019</i><br /><br />" + gsakButtons('GC83MD2' ,false,'null') + " <br><br /></center></div>");
+m17934.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=69ae24d4-6cdc-4760-951e-095d4ac5f1a9' target='geo'>GC83NXG</a><br />4WD 115 FOTT Go Bush </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 4.0, Terrain: 4.5<br />Size: Micro, Fav Points: 0<br />Elevation: 284 m.<br /><br /><i>You found this cache on: 07/09/2019</i><br /><br />" + gsakButtons('GC83NXG' ,false,'null') + " <br><br /></center></div>");
+m17996.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=d983450b-ce0b-42ce-82d4-8125197a5680' target='geo'>GC83MCY</a><br />4WD 026 FOTT Go Bush </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 2.5, Terrain: 4.5<br />Size: Micro, Fav Points: 2<br />Elevation: 315 m.<br /><br /><i>You found this cache on: 07/09/2019</i><br /><br />" + gsakButtons('GC83MCY' ,false,'null') + " <br><br /></center></div>");
+m17924.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=8f3eac26-4b84-4aa4-9da6-fde3fb223db5' target='geo'>GC83CET</a><br />4WD 095 FOTT Go Bush </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 3.5, Terrain: 5.0<br />Size: Micro, Fav Points: 1<br />Elevation: 303 m.<br /><br /><i>You found this cache on: 10/08/2019</i><br /><br />" + gsakButtons('GC83CET' ,false,'null') + " <br><br /></center></div>");
+m17950.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=a5dc2336-56f3-48d6-9c64-7dd4d8fe287f' target='geo'>GC83CEX</a><br />4WD 099 FOTT Go Bush </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 2.0, Terrain: 5.0<br />Size: Micro, Fav Points: 0<br />Elevation: 310 m.<br /><br /><i>You found this cache on: 10/08/2019</i><br /><br />" + gsakButtons('GC83CEX' ,false,'null') + " <br><br /></center></div>");
+m17980.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=69c2a04f-b411-47c9-b305-2eb0dfc8b58b' target='geo'>GC83AGD</a><br />4WD 018 FOTT Go Bush </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 3.5, Terrain: 5.0<br />Size: Micro, Fav Points: 1<br />Elevation: 311 m.<br /><br /><i>You found this cache on: 10/08/2019</i><br /><br />" + gsakButtons('GC83AGD' ,false,'null') + " <br><br /></center></div>");
+m17948.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=6fb73ae1-912c-4803-92e7-6ba0258b1323' target='geo'>GC83CFZ</a><br />4WD 183 FOTT Go Bush </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 1.5, Terrain: 5.0<br />Size: Micro, Fav Points: 0<br />Elevation: 313 m.<br /><br /><i>You found this cache on: 10/08/2019</i><br /><br />" + gsakButtons('GC83CFZ' ,false,'null') + " <br><br /></center></div>");
+m17998.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=68ca8434-ab28-4591-81e4-0b502b486208' target='geo'>GC83CE3</a><br />4WD 084 FOTT Go Bush </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 1.5, Terrain: 5.0<br />Size: Micro, Fav Points: 0<br />Elevation: 338 m.<br /><br /><i>You found this cache on: 10/08/2019</i><br /><br />" + gsakButtons('GC83CE3' ,false,'null') + " <br><br /></center></div>");
+m17972.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=3948ab31-8048-4a62-8dcd-e4ea9ca2a309' target='geo'>GC83AGF</a><br />4WD 022 FOTT Go Bush </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 2.5, Terrain: 4.5<br />Size: Micro, Fav Points: 0<br />Elevation: 286 m.<br /><br /><i>You found this cache on: 10/08/2019</i><br /><br />" + gsakButtons('GC83AGF' ,false,'null') + " <br><br /></center></div>");
+m18018.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=e50f09f5-4617-457d-af45-b694cd9ce602' target='geo'>GC83AG9</a><br />4WD 014 FOTT Go Bush </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 4.5, Terrain: 5.0<br />Size: Micro, Fav Points: 3<br />Elevation: 375 m.<br /><br /><i>You found this cache on: 10/08/2019</i><br /><br />" + gsakButtons('GC83AG9' ,false,'null') + " <br><br /></center></div>");
+m18028.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=19382efe-26b5-4bd0-af52-b1257e2e27ad' target='geo'>GC83CG1</a><br />4WD 187 FOTT Go Bush </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 4.5, Terrain: 5.0<br />Size: Micro, Fav Points: 2<br />Elevation: 329 m.<br /><br /><i>You found this cache on: 10/08/2019</i><br /><br />" + gsakButtons('GC83CG1' ,false,'null') + " <br><br /></center></div>");
+m18060.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=960f1a68-9307-4807-b2b5-ea91e150e868' target='geo'>GC8345Q</a><br />4WD 001 FOTT Go Bush </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 3.0, Terrain: 5.0<br />Size: Micro, Fav Points: 4<br />Elevation: 321 m.<br /><br /><i>You found this cache on: 10/08/2019</i><br /><br />" + gsakButtons('GC8345Q' ,false,'null') + " <br><br /></center></div>");
+m18045.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=170bc76c-65bb-4400-8699-22dbd2f240bb' target='geo'>GC83CEP</a><br />4WD 091 FOTT Go Bush </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 2.0, Terrain: 2.5<br />Size: Micro, Fav Points: 0<br />Elevation: 338 m.<br /><br /><i>You found this cache on: 27/09/2020</i><br /><br />" + gsakButtons('GC83CEP' ,false,'null') + " <br><br /></center></div>");
+m18056.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://www.geocaching.com/seek/cache_details.aspx?guid=79e3484b-9ed1-4140-905f-6d9ce1c89334' target='geo'>GC83AG6</a><br />4WD 005 FOTT Go Bush </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 2.0, Terrain: 2.5<br />Size: Micro, Fav Points: 0<br />Elevation: 321 m.<br /><br /><i>You found this cache on: 27/09/2020</i><br /><br />" + gsakButtons('GC83AG6' ,false,'null') + " <br><br /></center></div>");
+
+
+   
+
+   
+
+   
+
+};
+
+</script>
+
+<style type="text/css">
+
+   html, body {
+   height: 100%;
+   overflow: hidden;
+   font-family: Verdana;
+   font-size: 8pt;
+}
+
+body {
+background-color: white;
+margin: 0;
+}
+</style>
+
+</head>
+
+<body onload="initialize()">
+   <div id="map"></div>
+   <div id="hidden_form_container" style="display:none;">
+   <iframe id="upload_target" name="upload_target" src="" style="width:0;height:0;border:0px solid #fff;"></iframe>
+</div>
+  
+</body>
+</html>
