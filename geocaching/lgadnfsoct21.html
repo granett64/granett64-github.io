@@ -1,0 +1,333 @@
+<!DOCTYPE HTML>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" >
+<HTML>
+<head>
+<!-- saved from url=(0014)about:internet -->
+<title>GSAK Map - Leaflet</title>
+<style type="text/css">
+      body {
+        margin: 0;
+        font-family: Arial;
+        font-size: 16px;
+      }
+
+    #map {
+      background-color: #e5e3df;
+      height: 100%;
+    }
+    img{
+      border-style: none;
+    }
+    .labels {
+     font-family: "Lucida Grande", "Arial", sans-serif;
+     font-size: 10px;
+     font-weight: bold;
+     padding: 1px !important;
+     white-space: nowrap;
+     border: black !important;
+     /* IE7 Only */
+     *width: 100px;
+     *white-space: collapse;
+   }
+   .childlabels {
+     color: blue !important;
+     font-family: "Lucida Grande", "Arial", sans-serif;
+     font-size: 10px;
+     font-weight: bold;
+     padding: 1px !important;
+     white-space: nowrap;
+     border: black !important;
+     /* IE7 Only */
+     *width: 100px;
+     *white-space: collapse;
+   }
+   .delormelabels {
+    color: orange !important;
+    font-size:18px;
+    font-weight: bold;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0px;
+    cursor: none;
+   }
+
+   .iconstyle {
+        max-width: 70%;
+        max-height: 70%;
+   }
+     
+   .leaflet-touch .leaflet-bar a, .leaflet-touch .leaflet-bar a:hover {
+            width: 20px !important;
+            height: 20px !important;
+            line-height: 20px !important;
+         }
+
+         .leaflet-contextmenu {
+             display: none;
+             box-shadow: 0 1px 7px rgba(0,0,0,0.4);
+             -webkit-border-radius: 4px;
+             border-radius: 4px;
+             padding: 4px 0;
+             background-color: #fff;
+             cursor: default;
+             -webkit-user-select: none;
+             -moz-user-select: none;
+             user-select: none;
+         }
+
+         .leaflet-contextmenu a.leaflet-contextmenu-item {
+             display: block;
+             color: #222;
+             font-size: 11px;
+             line-height: 14px;
+             text-decoration: none;
+             padding: 0 10px;
+             border-top: 1px solid transparent;
+             border-bottom: 1px solid transparent;
+             cursor: default;
+             outline: none;
+         }
+
+         .leaflet-contextmenu a.leaflet-contextmenu-item-disabled {
+             opacity: 0.5;
+         }
+
+         .leaflet-contextmenu a.leaflet-contextmenu-item.over {
+             background-color: #f4f4f4;
+             border-top: 1px solid #f0f0f0;
+             border-bottom: 1px solid #f0f0f0;
+         }
+
+         .leaflet-contextmenu a.leaflet-contextmenu-item-disabled.over {
+             background-color: inherit;
+             border-top: 1px solid transparent;
+             border-bottom: 1px solid transparent;
+         }
+
+         .leaflet-contextmenu-icon {
+             margin: 2px 8px 0 0;
+             width: 16px;
+             height: 16px;
+             float: left;
+             border: 0;
+         }
+
+         .leaflet-contextmenu-separator {
+             border-bottom: 1px solid #ccc;
+             margin: 5px 0;
+         }
+
+         .leaflet-retina .leaflet-control-layers-toggle {
+            background-size: 22px 22px !important;
+         }
+
+         .leaflet-touch .leaflet-control-layers-toggle {
+            width: 30px !important;
+            height: 30px !important;
+         }
+         .leaflet-control-geocoder a {
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            display: block;
+         }
+
+         .leaflet-control-geocoder {
+            box-shadow: 0 1px 7px #999;
+            background: #f8f8f9;
+            -moz-border-radius: 8px;
+            -webkit-border-radius: 8px;
+            border-radius: 8px;
+         }
+
+         .leaflet-control-geocoder a {
+            background-image: url(cacheicons/geocoder.png);
+            width: 26px;
+            height: 26px;
+         }
+
+         .leaflet-touch .leaflet-control-geocoder a {
+            width: 30px;
+            height: 30px;
+         }
+
+         .leaflet-control-geocoder .leaflet-control-geocoder-form,
+         .leaflet-control-geocoder-expanded .leaflet-control-geocoder-toggle {
+            display: none;
+         }
+
+         .leaflet-control-geocoder-expanded .leaflet-control-geocoder-form {
+            display: block;
+            position: relative;
+         }
+
+         .leaflet-control-geocoder-expanded .leaflet-control-geocoder-form {
+            padding: 5px;
+         }
+         .leaflet-control-layers-list {
+            cursor: pointer;
+         }
+
+         .leaflet-draw-draw-polygon {
+            background-position: -34px -5px !important;
+         }
+
+         .leaflet-draw-edit-edit {
+            background-position: -214px -5px !important;
+         }
+
+</style>
+
+<!-----external references----->
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js" crossorigin=""></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css"/>
+<script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js" crossorigin=""></script> 
+
+
+<script src="https://unpkg.com/leaflet.markercluster.freezable@1.0.0/dist/leaflet.markercluster.freezable.js"></script>
+
+<script src="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.css"/>
+
+<script src="https://unpkg.com/leaflet-contextmenu@1.4.0/dist/leaflet.contextmenu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.js"></script>
+
+<script src="https://unpkg.com/togeojson@0.16.0"></script>
+
+<script src="https://unpkg.com/leaflet-filelayer@1.2.0"></script>
+
+<script src="https://gsak.net/stats/maps/leafletmap.js?5697"></script>
+
+
+<!-----local references----->
+
+<script type="text/javascript">
+var useScrollWheel = true;
+var silent = '';
+var database = 'MyGeocaches';
+var requiredversion = '3.0';
+var imagefolder = '';
+var showclusters = true;
+var tooltipsvisible = true;
+var clickfrommenu = false;
+var oneclick = false;
+var clusterradius = 80;
+var showclusters = false;
+var showanimation = true;
+var flagmarkers = [];
+var allflagmarkers = [];
+var unavailablemarkers = [];
+var dnfmarkers = [];
+var ownedmarkers = [];
+var circlemarkers = [];
+var childmarkers = [];
+var childcirclemarkers = [];
+
+
+var revNumber = "1.9";
+var scrollwheelZoom_user = true;
+var disableClusteringAtZoom_user = 14;
+var maxClusterRadius_user = 80;
+
+function usermaps() {};
+
+function userpoints() {
+
+   var latlng = new L.LatLng(-33.027467,116.59835);m14925 = new L.Marker(latlng, {icon:T_f_icon, title:"LGA Carnamah WA", draggable: false, zIndexOffset:1000});m14925.bindTooltip("LGA Carnamah WA",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m14925.cache=true;markers.addLayer(m14925);
+var latlng = new L.LatLng(-32.939567,116.754517);m14942 = new L.Marker(latlng, {icon:T_f_icon, title:"LGA Denmark WA", draggable: false, zIndexOffset:1000});m14942.bindTooltip("LGA Denmark WA",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m14942.cache=true;markers.addLayer(m14942);
+var latlng = new L.LatLng(-33.01405,116.721117);m14957 = new L.Marker(latlng, {icon:T_f_icon, title:"LGA Gosnells WA", draggable: false, zIndexOffset:1000});m14957.bindTooltip("LGA Gosnells WA",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m14957.cache=true;markers.addLayer(m14957);
+var latlng = new L.LatLng(-32.95475,116.751533);m14997 = new L.Marker(latlng, {icon:T_f_icon, title:"LGA Nedlands WA", draggable: false, zIndexOffset:1000});m14997.bindTooltip("LGA Nedlands WA",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m14997.cache=true;markers.addLayer(m14997);
+var latlng = new L.LatLng(-33.0191,116.7016);m15009 = new L.Marker(latlng, {icon:T_f_icon, title:"LGA Ravensthorpe WA", draggable: false, zIndexOffset:1000});m15009.bindTooltip("LGA Ravensthorpe WA",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m15009.cache=true;markers.addLayer(m15009);
+var latlng = new L.LatLng(-33.033283,116.614033);m15014 = new L.Marker(latlng, {icon:T_f_icon, title:"LGA South Perth WA", draggable: false, zIndexOffset:1000});m15014.bindTooltip("LGA South Perth WA",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m15014.cache=true;markers.addLayer(m15014);
+var latlng = new L.LatLng(-32.862717,116.555667);m15046 = new L.Marker(latlng, {icon:T_f_icon, title:"LGA Banyule VIC", draggable: false, zIndexOffset:1000});m15046.bindTooltip("LGA Banyule VIC",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m15046.cache=true;markers.addLayer(m15046);
+var latlng = new L.LatLng(-32.839617,116.507583);m15073 = new L.Marker(latlng, {icon:T_f_icon, title:"LGA Hobsons Bay VIC", draggable: false, zIndexOffset:1000});m15073.bindTooltip("LGA Hobsons Bay VIC",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m15073.cache=true;markers.addLayer(m15073);
+var latlng = new L.LatLng(-32.930083,116.561683);m15162 = new L.Marker(latlng, {icon:T_f_icon, title:"LGA Charles Sturt SA", draggable: false, zIndexOffset:1000});m15162.bindTooltip("LGA Charles Sturt SA",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m15162.cache=true;markers.addLayer(m15162);
+var latlng = new L.LatLng(-32.91035,116.51735);m15187 = new L.Marker(latlng, {icon:T_f_icon, title:"LGA Mount Remarkable  SA", draggable: false, zIndexOffset:1000});m15187.bindTooltip("LGA Mount Remarkable  SA",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m15187.cache=true;markers.addLayer(m15187);
+var latlng = new L.LatLng(-32.903067,116.517383);m15214 = new L.Marker(latlng, {icon:T_f_icon, title:"LGA Wudinna  SA", draggable: false, zIndexOffset:1000});m15214.bindTooltip("LGA Wudinna  SA",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m15214.cache=true;markers.addLayer(m15214);
+var latlng = new L.LatLng(-32.893083,116.496367);m15325 = new L.Marker(latlng, {icon:T_f_icon, title:"LGA Auburn NSW", draggable: false, zIndexOffset:1000});m15325.bindTooltip("LGA Auburn NSW",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m15325.cache=true;markers.addLayer(m15325);
+var latlng = new L.LatLng(-33.044583,116.767767);m15337 = new L.Marker(latlng, {icon:T_f_icon, title:"LGA Bogan NSW", draggable: false, zIndexOffset:1000});m15337.bindTooltip("LGA Bogan NSW",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m15337.cache=true;markers.addLayer(m15337);
+var latlng = new L.LatLng(-33.032633,116.771933);m15359 = new L.Marker(latlng, {icon:T_f_icon, title:"LGA Cooma-Monaro NSW", draggable: false, zIndexOffset:1000});m15359.bindTooltip("LGA Cooma-Monaro NSW",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m15359.cache=true;markers.addLayer(m15359);
+var latlng = new L.LatLng(-33.0461,116.75445);m15363 = new L.Marker(latlng, {icon:T_f_icon, title:"LGA Cowra NSW", draggable: false, zIndexOffset:1000});m15363.bindTooltip("LGA Cowra NSW",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m15363.cache=true;markers.addLayer(m15363);
+var latlng = new L.LatLng(-32.942283,116.671683);m15388 = new L.Marker(latlng, {icon:T_f_icon, title:"LGA Hurstville NSW", draggable: false, zIndexOffset:1000});m15388.bindTooltip("LGA Hurstville NSW",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m15388.cache=true;markers.addLayer(m15388);
+var latlng = new L.LatLng(-32.9858,116.77075);m15394 = new L.Marker(latlng, {icon:T_f_icon, title:"LGA Kogarah NSW", draggable: false, zIndexOffset:1000});m15394.bindTooltip("LGA Kogarah NSW",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m15394.cache=true;markers.addLayer(m15394);
+var latlng = new L.LatLng(-32.888583,116.48995);m15422 = new L.Marker(latlng, {icon:T_f_icon, title:"LGA Palerang NSW", draggable: false, zIndexOffset:1000});m15422.bindTooltip("LGA Palerang NSW",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m15422.cache=true;markers.addLayer(m15422);
+var latlng = new L.LatLng(-33.04625,116.760217);m15423 = new L.Marker(latlng, {icon:T_f_icon, title:"LGA Parkes NSW", draggable: false, zIndexOffset:1000});m15423.bindTooltip("LGA Parkes NSW",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m15423.cache=true;markers.addLayer(m15423);
+var latlng = new L.LatLng(-32.88865,116.49215);m15429 = new L.Marker(latlng, {icon:T_f_icon, title:"LGA Oberon NSW", draggable: false, zIndexOffset:1000});m15429.bindTooltip("LGA Oberon NSW",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m15429.cache=true;markers.addLayer(m15429);
+var latlng = new L.LatLng(-32.985767,116.768783);m15453 = new L.Marker(latlng, {icon:T_f_icon, title:"LGA Upper Lachlan Shire NSW", draggable: false, zIndexOffset:1000});m15453.bindTooltip("LGA Upper Lachlan Shire NSW",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m15453.cache=true;markers.addLayer(m15453);
+var latlng = new L.LatLng(-32.985767,116.772733);m15460 = new L.Marker(latlng, {icon:T_f_icon, title:"LGA Warringah NSW", draggable: false, zIndexOffset:1000});m15460.bindTooltip("LGA Warringah NSW",{permanent: true, direction: "left", className:"labels"});bounds.extend(latlng);m15460.cache=true;markers.addLayer(m15460);
+   
+   
+   
+   
+   
+   
+
+   
+
+   
+
+   m15073.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC7750W' target='geo'>GC7750W</a><br />LGA Hobsons Bay VIC </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 1.5, Terrain: 1.5<br />Size: Micro, Fav Points: 0<br />Elevation: 302 m.<br /><br /><i>You found this cache on: 28/12/2020</i><br /><br />" + gsakButtons('GC7750W' ,false,'null') + " <br><br /></center></div>");
+m15046.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC771BV' target='geo'>GC771BV</a><br />LGA Banyule VIC </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 1.5, Terrain: 1.5<br />Size: Micro, Fav Points: 0<br />Elevation: 312 m.<br /><br /><i>You found this cache on: 16/12/2017</i><br /><br />" + gsakButtons('GC771BV' ,false,'null') + " <br><br /></center></div>");
+m15429.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC78C4D' target='geo'>GC78C4D</a><br />LGA Oberon NSW </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 1.5, Terrain: 1.5<br />Size: Micro, Fav Points: 0<br />Elevation: 224 m.<br /><br /><i>You found this cache on: 19/07/2020</i><br /><br />" + gsakButtons('GC78C4D' ,false,'null') + " <br><br /></center></div>");
+m15422.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC78C45' target='geo'>GC78C45</a><br />LGA Palerang NSW </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 1.5, Terrain: 1.5<br />Size: Micro, Fav Points: 0<br />Elevation: 226 m.<br /><br /><i>You found this cache on: 28/12/2020</i><br /><br />" + gsakButtons('GC78C45' ,false,'null') + " <br><br /></center></div>");
+m15325.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC7863Y' target='geo'>GC7863Y</a><br />LGA Auburn NSW </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 1.5, Terrain: 1.5<br />Size: Micro, Fav Points: 0<br />Elevation: 228 m.<br /><br /><i>You found this cache on: 28/01/2019</i><br /><br />" + gsakButtons('GC7863Y' ,false,'null') + " <br><br /></center></div>");
+m15214.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC77MVN' target='geo'>GC77MVN</a><br />LGA Wudinna  SA </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 1.5, Terrain: 1.5<br />Size: Micro, Fav Points: 0<br />Elevation: 249 m.<br /><br /><i>You found this cache on: 16/12/2017</i><br /><br />" + gsakButtons('GC77MVN' ,false,'null') + " <br><br /></center></div>");
+m15187.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC77MRA' target='geo'>GC77MRA</a><br />LGA Mount Remarkable  SA </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 1.5, Terrain: 1.5<br />Size: Micro, Fav Points: 0<br />Elevation: 279 m.<br /><br /><i>You found this cache on: 16/09/2018</i><br /><br />" + gsakButtons('GC77MRA' ,false,'null') + " <br><br /></center></div>");
+m15162.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC77G1P' target='geo'>GC77G1P</a><br />LGA Charles Sturt SA </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 1.5, Terrain: 1.5<br />Size: Micro, Fav Points: 1<br />Elevation: 265 m.<br /><br /><i>You found this cache on: 28/01/2019</i><br /><br />" + gsakButtons('GC77G1P' ,false,'null') + " <br><br /></center></div>");
+m15388.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC788H3' target='geo'>GC788H3</a><br />LGA Hurstville NSW </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 1.5, Terrain: 1.5<br />Size: Micro, Fav Points: 0<br />Elevation: 326 m.<br /><br /><i>You found this cache on: 16/09/2018</i><br /><br />" + gsakButtons('GC788H3' ,false,'null') + " <br><br /></center></div>");
+m14925.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC76P8Z' target='geo'>GC76P8Z</a><br />LGA Carnamah WA </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 1.5, Terrain: 1.5<br />Size: Micro, Fav Points: 0<br />Elevation: 231 m.<br /><br /><i>You found this cache on: 04/03/2018</i><br /><br />" + gsakButtons('GC76P8Z' ,false,'null') + " <br><br /></center></div>");
+m15014.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC77105' target='geo'>GC77105</a><br />LGA South Perth WA </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 1.5, Terrain: 1.5<br />Size: Micro, Fav Points: 0<br />Elevation: 235 m.<br /><br /><i>You found this cache on: 04/03/2018</i><br /><br />" + gsakButtons('GC77105' ,false,'null') + " <br><br /></center></div>");
+m14942.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC76R79' target='geo'>GC76R79</a><br />LGA Denmark WA </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 1.5, Terrain: 1.5<br />Size: Micro, Fav Points: 4<br />Elevation: 271 m.<br /><br /><i>You found this cache on: 16/09/2018</i><br /><br />" + gsakButtons('GC76R79' ,false,'null') + " <br><br /></center></div>");
+m14997.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC76XP3' target='geo'>GC76XP3</a><br />LGA Nedlands WA </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 1.5, Terrain: 1.5<br />Size: Micro, Fav Points: 2<br />Elevation: 280 m.<br /><br /><i>You found this cache on: 16/09/2018</i><br /><br />" + gsakButtons('GC76XP3' ,false,'null') + " <br><br /></center></div>");
+m15009.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC76Z51' target='geo'>GC76Z51</a><br />LGA Ravensthorpe WA </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 1.5, Terrain: 1.5<br />Size: Micro, Fav Points: 0<br />Elevation: 322 m.<br /><br /><i>You found this cache on: 04/03/2018</i><br /><br />" + gsakButtons('GC76Z51' ,false,'null') + " <br><br /></center></div>");
+m14957.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC76R88' target='geo'>GC76R88</a><br />LGA Gosnells WA </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 1.5, Terrain: 1.5<br />Size: Micro, Fav Points: 1<br />Elevation: 344 m.<br /><br /><i>You found this cache on: 04/03/2018</i><br /><br />" + gsakButtons('GC76R88' ,false,'null') + " <br><br /></center></div>");
+m15453.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC78DRB' target='geo'>GC78DRB</a><br />LGA Upper Lachlan Shire NSW </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 1.5, Terrain: 1.5<br />Size: Micro, Fav Points: 1<br />Elevation: 295 m.<br /><br /><i>You found this cache on: 04/03/2018</i><br /><br />" + gsakButtons('GC78DRB' ,false,'null') + " <br><br /></center></div>");
+m15394.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC788H9' target='geo'>GC788H9</a><br />LGA Kogarah NSW </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 1.5, Terrain: 1.5<br />Size: Micro, Fav Points: 0<br />Elevation: 299 m.<br /><br /><i>You found this cache on: 04/03/2018</i><br /><br />" + gsakButtons('GC788H9' ,false,'null') + " <br><br /></center></div>");
+m15460.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC78DRW' target='geo'>GC78DRW</a><br />LGA Warringah NSW </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 1.5, Terrain: 1.5<br />Size: Micro, Fav Points: 0<br />Elevation: 301 m.<br /><br /><i>You found this cache on: 16/12/2017</i><br /><br />" + gsakButtons('GC78DRW' ,false,'null') + " <br><br /></center></div>");
+m15363.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC787BY' target='geo'>GC787BY</a><br />LGA Cowra NSW </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 1.5, Terrain: 1.5<br />Size: Micro, Fav Points: 0<br />Elevation: 370 m.<br /><br /><i>You found this cache on: 04/03/2018</i><br /><br />" + gsakButtons('GC787BY' ,false,'null') + " <br><br /></center></div>");
+m15359.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC787BB' target='geo'>GC787BB</a><br />LGA Cooma-Monaro NSW </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 1.5, Terrain: 1.5<br />Size: Micro, Fav Points: 1<br />Elevation: 311 m.<br /><br /><i>You found this cache on: 04/03/2018</i><br /><br />" + gsakButtons('GC787BB' ,false,'null') + " <br><br /></center></div>");
+m15423.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC78C46' target='geo'>GC78C46</a><br />LGA Parkes NSW </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 1.5, Terrain: 1.5<br />Size: Micro, Fav Points: 1<br />Elevation: 339 m.<br /><br /><i>You found this cache on: 04/03/2018</i><br /><br />" + gsakButtons('GC78C46' ,false,'null') + " <br><br /></center></div>");
+m15337.bindPopup("<div style='width:200px;overflow:hidden;font-family:Verdana;font-size:10px;'><center><b><a href='http://coord.info/GC786P2' target='geo'>GC786P2</a><br />LGA Bogan NSW </b><br /><i>by: FellowshipOfTheTrail </i><br /><br />Difficulty: 1.5, Terrain: 1.5<br />Size: Micro, Fav Points: 2<br />Elevation: 324 m.<br /><br /><i>You found this cache on: 04/03/2018</i><br /><br />" + gsakButtons('GC786P2' ,false,'null') + " <br><br /></center></div>");
+
+
+   
+
+   
+
+   
+
+};
+
+</script>
+
+<style type="text/css">
+
+   html, body {
+   height: 100%;
+   overflow: hidden;
+   font-family: Verdana;
+   font-size: 8pt;
+}
+
+body {
+background-color: white;
+margin: 0;
+}
+</style>
+
+</head>
+
+<body onload="initialize()">
+   <div id="map"></div>
+   <div id="hidden_form_container" style="display:none;">
+   <iframe id="upload_target" name="upload_target" src="" style="width:0;height:0;border:0px solid #fff;"></iframe>
+</div>
+  
+</body>
+</html>
