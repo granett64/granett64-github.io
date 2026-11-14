@@ -1,0 +1,178 @@
+South 800
+-30.752365 121.520343
+
+North 800
+-23.40241712287584, 119.7374843242766
+
+Far North 500
+-18.209876 125.658035
+
+- max caches = 500
+- check 'do not convert code to upper case
+	and mark linears with 'L'
+- check all in description
+- code prefix 'LB'
+
+
+-----------------------------------------------------------
+Public
+
+uncheck 'Include Waypoint question in Cache description'
+uncheck 'Include Award Message in Cache description (may contain spoilers)'
+uncheck 'Do not exclude my finds but mark as found'
+check   'Do not convert Code to upper case'
+
+--------------------------------------------------------------
+Tassie
+-42.19953, 146.59058
+-42.203329, 146.572346
+300k's
+
+---------------------------------------------------------------
+
+Melbourne Airport
+-37.671175120940866, 144.85249316104517
+
+300k's
+
+-----------------------------------------------------------------
+
+Sydney Airport
+-33.93825989907646, 151.17393348702186
+20k's
+
+--------------------------------------------------------------------
+
+NT
+S 19° 36.535 E 134° 12.668
+S 15° 30.079 E 133° 11.503
+
+-16.89377376092715, 133.19605653927854
+
+---------------------------------------------------------------------
+
+SA
+-31.39840946718333, 136.3041164886741
+
+-----------------------------------------------------------------------
+
+Norfolk Island
+S 29° 01.956 E 167° 57.003
+10k
+
+-------------------------------------------------------------------------
+
+US Route 66
+Illinios
+40.885433510492085, -90.7230596114009
+300
+Chicago
+41.87968713294024, -87.62531917593977
+20k
+Ill2
+41.32168817416219, -88.60920923895809
+300k
+
+New Mexico
+35.21527476550398, -106.16983695722779
+
+California
+35.29234397548039, -114.67276251543126
+400
+Santa Monica
+34.05124307448233, -118.24232591016393
+50k
+
+Oklahoma
+36.15491893303614, -95.9893074643398
+200k
+Kansas
+39.3869933911273, -101.04822251470529
+300k
+
+Liberal
+37.03118475661471, -100.91443962744869
+50K
+Tennessee
+35.04787979278831, -90.0278600565491
+200k
+
+Tucumcari
+35.16751126241523, -103.71764734599212
+200K
+
+Las Vegas
+36.10238, -115.18066
+200
+
+Texas Houston
+29.985332575859765, -95.3408837397662
+50k
+
+San Francisco International Airport
+37.61668136644818, -122.38580956999326
+25K
+
+Missouri
+38.82495, -92.48456
+300k
+
+Hong Kong
+22.312261840500476, 113.913284500034
+25k
+
+NZ
+Aukland Airport
+-37.00913, 174.78733
+25k
+---------------------------------------------------------------------
+Get geocaches US trads
+Arkansas
+35.82863223808029, -89.90562559863965
+
+Mississippi rectangle
+35.17436,-90.264465
+34.845367,-89.581146
+
+Utah circle 20k (four corners)
+36.99998757003205, -109.04913729776848
+
+---------------------------------------------------------------------
+
+NZ
+Aukland Airport
+-37.00913, 174.78733
+25k
+
+
+-----------------------------------------------------------------------
+inlist Filters
+There
+
+Weeks 1&2
+illinois;missouri;kentucky;mississippi;arkansas;oklahoma;kansas;tennessee
+
+Weeks 2&3
+oklahoma;kansas;texas;new mexico;arizona;colorado
+oklahoma;kansas;texas;new mexico;arizona;colorado;utah
+Latitude >=34.0
+
+Weeks 3&4
+arizona;utah;nevada;california
+Latitude <=36.5 AND Latitude >=33.5
+
+Week 1
+illinois;missouri
+longitude >=-87 AND longitude <=-90
+
+Week 1 - Memphis
+missouri;kentucky;mississippi;arkansas;tennessee
+longitude >=-87
+
+Week 2
+missouri;oklahoma;kansas
+longitude >=-91
+
+Week 3
+oklahoma;kansas;texas;new mexico;colorado;utah
+Latitude >=34.0 
